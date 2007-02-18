@@ -22,11 +22,8 @@ setMethod(".ggraphics",
             ## this is from iWidgets code in widgets.R
             ## This doesn't allow us to embed the device into a widget
             
-#            a <- Sys.getenv("JAVAGD_CLASS_NAME")
-#            Sys.putenv("JAVAGD_CLASS_NAME"="org/rosuda/iWidgets/iGD")
             JavaGD(name="JavaGD",width=force(width), height=force(height),
                    ps=ps)
-#            Sys.putenv("JAVAGD_CLASS_NAME"=a)
             di <- dev.cur()
             j <- .getJavaGDObject(di)
             if (is.null(j)) {

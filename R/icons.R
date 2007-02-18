@@ -7,7 +7,7 @@ getgWidgetsrJavaIcons = function() {
   ## create a hash with name -> location
   iconPaths = list()
   for(i in allIcons) {
-    filename = sub("\.xpm$|\.gif$|\.jpg$|\.jpeg$|\.png$|\.tiff$","",i)
+    filename = sub("\\.xpm$|\\.gif$|\\.jpg$|\\.jpeg$|\\.png$|\\.tiff$","",i)
     iconPaths[[filename]] <- system.file("images",i,package="gWidgetsrJava")
   }
   return(iconPaths)

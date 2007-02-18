@@ -109,7 +109,7 @@ makeHelpPage = function(topic, pkg, toolkit) {
 
 
   if(file.exists(helpFile)) {
-    helpFile = gsub("\\\\","\/",helpFile) # windows?o
+    helpFile = gsub("\\\\","/",helpFile) # windows?o
     helpFile = paste("file://",helpFile,sep="",collapse="")
     textview = jnew("JEditorPane")
     
