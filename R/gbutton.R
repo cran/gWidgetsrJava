@@ -7,7 +7,7 @@ setClass("gButtonrJava",
 setMethod(".gbutton",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
-                   text="", handler=NULL, action=NULL, container=NULL,...
+                   text="", border = TRUE, handler=NULL, action=NULL, container=NULL,...
                    ) {
 
             force(toolkit)
@@ -26,7 +26,11 @@ setMethod(".gbutton",
               button = .jnew("javax/swing/JButton",.jnew("java/lang/String",text))
             }
 
-
+            ## look like button if border=FALSE
+            if(border == FALSE) {
+              button$setBorderPainted(FALSE) # no border
+              button$setContentAreaFilled(FALSE) # no shading
+            }
 
             obj = new("gButtonrJava",
               block=button, widget=button, toolkit=toolkit,ID=getNewID())

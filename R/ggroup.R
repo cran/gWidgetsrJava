@@ -3,7 +3,9 @@
 setMethod(".ggroup",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
-                   horizontal = TRUE, spacing = 5, container = NULL, ... 
+                   horizontal = TRUE, spacing = 5,
+                   use.scrollwindow = FALSE, 
+                   container = NULL, ... 
                    ) {
 
             force(toolkit)
@@ -24,9 +26,19 @@ setMethod(".ggroup",
             
             ## let breath a little
             ##group$SetBorderWidth(2)
-            
-            obj = new("gGrouprJava", block=group, widget=group, toolkit=toolkit, ID=getNewID(), horizontal=horizontal)
-
+            if(use.scrollwindow == TRUE) {
+              ## the scrollpane
+              sp = .jnew("javax/swing/JScrollPane", as.jcomponent(group))
+              ## set scrollpane properties
+              if(is.null(theArgs$width)) theArgs$width = 300
+              if(is.null(theArgs$height)) theArgs$height = 300
+              d = .jnew("java/awt/Dimension")
+              d$setSize(theArgs$width,theArgs$height)
+              .jcall(as.jcomponent(sp),"V","setPreferredSize",d)
+              obj = new("gGrouprJava", block=sp, widget=group, toolkit=toolkit, ID=getNewID(), horizontal=horizontal)
+            } else {
+              obj = new("gGrouprJava", block=group, widget=group, toolkit=toolkit, ID=getNewID(), horizontal=horizontal)
+            }
             
             ## attach to container if there
             if(!is.null(container)) {
@@ -36,8 +48,8 @@ setMethod(".ggroup",
             }
 
             ## raise if we drag across
-            DEBUG("ggroup: need to fix raise on dragmotion\n")
             if(!is.null(theArgs$raise.on.dragmotion)) {
+              DEBUG("ggroup: need to fix raise on dragmotion\n")
               adddroptarget(obj, handler = function(h,...) {})
               adddropmotion(obj, handler = function(h,...) getWidget(h$obj)$GetWindow()$Raise())
             }
