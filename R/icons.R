@@ -23,7 +23,7 @@ setMethod(".getStockIcons",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit) {
             .stockicons = list()
-            for(i in unlist(gtkStockListIds())) {
+            for(i in unlist(getgWidgetsrJavaIcons())) {
               name = sub("[a-zA-Z0-9]*-","",i)
               .stockicons[[name]] = i
             }
@@ -45,10 +45,10 @@ getstockiconname = function(name=NULL) {
       if(name %in% .stockicons)
         return(name)
       
-      if(is.null(.stockicons[[name]])) {
-        return(NA)
-      } else {
+      if(name %in% names(.stockicons)) {
         return(.stockicons[[name]])
+      } else {
+        return(NA)
       }
     })
   }

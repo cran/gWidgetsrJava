@@ -13,9 +13,15 @@ setMethod(".ggraphicsnotebook",
                    container = NULL,
                    ...) {
             ## ... passed onto gnotebook
+
+
             
             force(toolkit)
             
+            cat("ggraphicsnotebook Not impleneted in rjava\n")
+            invisible()
+
+
             group = ggroup(horizontal = FALSE, container=container)
             
             ## make toolbar
@@ -219,10 +225,10 @@ saveCurrentPage = function(obj) {
           ## use undocumented part of gnotebook
 #          drawarea = getNotebookPageWidget(obj$notebook)
           drawarea = getNotebookPageWidget(obj)
-          newobj = as.gGd(drawarea)
+#          newobj = as.gGd(drawarea)
           svalue(newobj) <- list(file=theFileName, extension=theFileType)
         } else {
-          cat("***\n Don't know this extension:", tbeFileType,"\n\n")
+          cat("***\n Don't know this extension:", theFileType,"\n\n")
         }
         dispose(win)
       }

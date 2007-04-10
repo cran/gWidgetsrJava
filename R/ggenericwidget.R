@@ -390,7 +390,7 @@ autogenerategeneric = function(f,
              },
              "call" = {
                ## only handle c(...)
-               ## others are just blank gtkEntry
+               ## others are just blank gentry
                callVal = as.character(val)
                if(callVal[1] == "c") {
                  items = eval(val)

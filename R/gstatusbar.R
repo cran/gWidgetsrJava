@@ -1,4 +1,4 @@
-## gtkStatusBar. Use value to push message, value to pop
+## StatusBar. Use value to push message, value to pop
 setClass("gStatusbarrJava",
          contains="gComponentrJava",
          prototype=prototype(new("gComponentrJava"))

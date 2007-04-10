@@ -60,17 +60,6 @@ setMethod(".ggraphics",
             return(obj)
           })
 
-## as.gGd = function(obj) {
-##   if("GtkDrawingArea" %in% class(obj)) {
-##     newobj = list(ref = obj, device = obj$GetData("device"))
-##     class(newobj) <- c("gGd", "gComponent")
-##     return(newobj)
-##   } else {
-##     cat("conversion failed\n")
-##     return(obj)
-##   }
-## }
-
 
 ### methods
 
@@ -99,58 +88,7 @@ setReplaceMethod(".visible",
 setReplaceMethod(".svalue",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gGraphicsrJava"),
                  function(obj, toolkit, index=NULL,  ..., value) {
-                   if(length(value) > 1) {
-                     file = value$file
-                     extension  = value$extension
-                   } else {
-                     file = value; extension = ""
-                   }
-                   ## check that filename is okay
-                   if(!is.null(file) && !is.null(extension)) {
-                     tmp = unlist(strsplit(file,"\\."))
-                     if(tmp[length(tmp)] != extension) {
-                       filename = Paste(file,".",extension)
-                     } else {
-                       filename = file
-                     }
-                   } else {
-                     return()
-                   }
-                   
-                   drawarea = obj@widget
-                   
-                   parentAllocation = drawarea$GetParent()$GetAllocation()
-                   
-                   pixbuf = gdkPixbufGetFromDrawable(
-                     src=drawarea$GetWindow(),
-                     cmap=drawarea$GetColormap(),
-                     src.x = drawarea$GetAllocation()$x - parentAllocation$x,
-                     src.y = drawarea$GetAllocation()$y - parentAllocation$y,
-                     dest.x = 0,
-                     dest.y = 0,
-                     width = drawarea$GetAllocation()$width,
-                     height = drawarea$GetAllocation()$height
-                     )
-                   pixbuf$Save(filename = filename,type=extension)
-                   
-                   ##   switch(extension,
-                   ##          "ps" = dev.copy2eps.hack(file=filename,
-                   ##            onefile=onefile, horizontal=horizontal,
-                   ##            width=width, height = height),
-                   ##          "eps" = dev.print.hack(postscript,file=filename,
-                   ##            onefile=onefile, horizontal=horizontal,
-                   ##            width=width, height = height),
-                   ##          "pdf" = dev.print.hack(pdf,file=filename,
-                   ##            onefile=onefile, horizontal=horizontal,
-                   ##            width=width, height = height),
-                   ##          "jpg" = dev.print.hack(jpeg,file=filename,
-                   ##            onefile=onefile, horizontal=horizontal,
-                   ##            width=width, height = height),
-                   ##          "jpeg" = dev.print.hack(jpeg,file=filename,width=width,height=height),
-                   ##          "png" = dev.print.hack(png,file=filename,width=width,height=height),
-                   ##          cat("***\n Don't know this extension:", type,"\n\n")
-                   ##          )
-                   
+                   cat("svalue not implemented\n")
                    return(obj)
                  })
 

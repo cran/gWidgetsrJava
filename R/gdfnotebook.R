@@ -208,7 +208,7 @@ addPopupToPage = function(obj, nb) {    # obj is gdf instance
         gbutton("ok",container=buttonGroup,handler = function(h,...) {
           FUN = Paste("function(x) {",svalue(FUN),"}")
           f = eval(parse(text=FUN))
-          col.no = getdata(view.col,"column.number") - 1 # rownames offset
+          col.no = tag(view.col,"column.number") - 1 # rownames offset
           theNewVals = f(obj[,col.no, drop=FALSE])
           obj[,col.no] = theNewVals
           dispose(win)
@@ -254,24 +254,17 @@ addPopupToPage = function(obj, nb) {    # obj is gdf instance
     ##       add(nb$notebook, glabel("new things"),"delete me")
     ## now make the menu bar, see add3rdbuttonpopup.default
     mb = gmenu(lst, popup=TRUE)
-    event = gdkEventNew(GdkEventType["button-press"])
-      ## do the popup
-      mb@widget$PopupHack(button = event$GetButton(), activate.time=event$GetTime())
-    }
+#    event = gdkEventNew(GdkEventType["button-press"])
+#      ## do the popup
+#      mb@widget$PopupHack(button = event$GetButton(), activate.time=event$GetTime())
+#  }
 
   ## now add the popup to the buttons. (The widgets are labels, but
   ## signals are not being passed along when the button is clicked,
   ## hence this being here, not in geditdataframe.
-  cols = obj@view$GetColumns()
-  callbackIDs = sapply(1:length(cols), function(i) {
-    connectSignal(cols[[i]]$GetWidget()$GetParent()$GetParent()$GetParent(),
-                  signal="clicked",
-                  f = f,
-                  data = list(obj=cols[[i]], action=obj, col=i-1), # 0 base columns
-                  user.data.first = TRUE,
-                  after = TRUE)
-  })
-  invisible(callbackIDs)
+###  cols = obj@view$GetColumns()
+  }
+###  invisible(callbackIDs)
 }
 
 ## save current page

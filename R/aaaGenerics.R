@@ -490,11 +490,11 @@ setReplaceMethod(".tag", signature(toolkit="guiWidgetsToolkitrJava",obj="gWidget
 ## id -- define for "ANY" as well
 setMethod("id",signature(obj="gWidgetrJava"),
           function(obj, ...) {
-            tag(obj,".gtkID")
+            tag(obj,".rJavaID")
           })
 setMethod("id",signature(obj="rJavaObject"),
           function(obj, ...) {
-            tag(obj, ".gtkID", ...)
+            tag(obj, ".rJavaID", ...)
             return(obj)
           })
 setMethod("id",signature(obj="ANY"),
@@ -515,24 +515,24 @@ setMethod("id",signature(obj="ANY"),
 
 setMethod(".id", signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit, ...) {
-            tag(obj,".gtkID", ...)
+            tag(obj,".rJavaID", ...)
           })
 setMethod(".id", signature(toolkit="guiWidgetsToolkitrJava",obj="rJavaObject"),
           function(obj, toolkit,  ...) {
-            return(tag(obj,".gtkID"))
+            return(tag(obj,".rJavaID"))
           })
 
 
 ## id<-
 setReplaceMethod("id",signature(obj="gWidgetrJava"),
           function(obj, ..., value) {
-            tag(obj,".gtkID", ...) <- value
+            tag(obj,".rJavaID", ...) <- value
             return(obj)
           })
 ## dispatch in *this* toolkit, not present in obj
 setReplaceMethod("id",signature(obj="rJavaObject"),
           function(obj, ..., value) {
-            tag(obj, ".gtkID", ...) <- value
+            tag(obj, ".rJavaID", ...) <- value
             return(obj)
           })
 setReplaceMethod("id",signature(obj="ANY"),
@@ -795,63 +795,63 @@ setMethod(".addHandler",
           function(obj, toolkit,
                    signal, handler, action=NULL, ...) {
 
-            missingMsg(".addHandler");return()
+##             missingMsg(".addHandler");return()
 
             
-            ## need to return TRUE
-            modifyHandler = function(...) {
-              handler(...)
-              return(TRUE)
-            }
+##             ## need to return TRUE
+##             modifyHandler = function(...) {
+##               handler(...)
+##               return(TRUE)
+##             }
 
 
 
             
-            callbackID <- try(connectSignal(getWidget(obj), ### issue: getWidget(obj),
-                                            signal=signal,
-                                            f=modifyHandler,
-                                            data=list(obj=obj, action=action,...),
-                                            user.data.first = TRUE,
-                                            after = FALSE), silent=FALSE)
-            if(inherits(callbackID,"try-error")) {
-              cat("Couldn't add signal: ",signal," for object of class:")
-              cat(class(obj))
-              return(NA)
-            } else {
-              ## now put handler into object
-              handler.ID = tag(obj, "handler.id")
-              if(is.null(handler.ID))
-                handler.ID =list()
-              handler.ID[[length(handler.ID)+1]] = callbackID
-              tag(obj, "handler.id") <- handler.ID
+##             callbackID <- try(connectSignal(getWidget(obj), ### issue: getWidget(obj),
+##                                             signal=signal,
+##                                             f=modifyHandler,
+##                                             data=list(obj=obj, action=action,...),
+##                                             user.data.first = TRUE,
+##                                             after = FALSE), silent=FALSE)
+##             if(inherits(callbackID,"try-error")) {
+##               cat("Couldn't add signal: ",signal," for object of class:")
+##               cat(class(obj))
+##               return(NA)
+##             } else {
+##               ## now put handler into object
+##               handler.ID = tag(obj, "handler.id")
+##               if(is.null(handler.ID))
+##                 handler.ID =list()
+##               handler.ID[[length(handler.ID)+1]] = callbackID
+##               tag(obj, "handler.id") <- handler.ID
               
-              ##
-              ##            addhandlerdestroy(obj, handler=function(h,...)
-              ##                              removehandler(h$obj,h$action),
-              ##                              action=ID)
-              ## return ID
-              invisible(callbackID)
-            }
+##               ##
+##               ##            addhandlerdestroy(obj, handler=function(h,...)
+##               ##                              removehandler(h$obj,h$action),
+##               ##                              action=ID)
+##               ## return ID
+##               invisible(callbackID)
+##            }
           })
 
 setMethod(".addHandler",
           signature(toolkit="guiWidgetsToolkitrJava",obj="rJavaObject"),
           function(obj, toolkit, signal, handler, action=NULL, ...) {
-            callbackID <- try(connectSignal(obj,
-                                            signal=signal,
-                                            f=handler,
-                                            data=list(obj=obj, action=action, ...),
-                                            user.data.first = TRUE,
-                                            after = FALSE),
-                              silent=TRUE)
-            ## can't' stuff in handler IDS
-            if(inherits(callbackID,"try-error")) {
-              cat("Couldn't connect signal:",signal,"for")
-              print(obj)
-              return(NA)
-            } else {
-              invisible(callbackID)
-            }
+##             callbackID <- try(connectSignal(obj,
+##                                             signal=signal,
+##                                             f=handler,
+##                                             data=list(obj=obj, action=action, ...),
+##                                             user.data.first = TRUE,
+##                                             after = FALSE),
+##                               silent=TRUE)
+##             ## can't' stuff in handler IDS
+##             if(inherits(callbackID,"try-error")) {
+##               cat("Couldn't connect signal:",signal,"for")
+##               print(obj)
+##               return(NA)
+##             } else {
+##               invisible(callbackID)
+##             }
           })
 
 ## removew handler
@@ -1040,18 +1040,19 @@ setMethod(".addhandlerrightclick",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit,
                    handler, action=NULL, ...) {
-            connectSignal(obj@widget,
-                          signal = "button-press-event",
-                          f = function(h, eventButton,...) {
-                            if(eventButton$GetButton() == 3) {
-                              h$handler(h,...)
-                            }
-                            return(FALSE)         # continue propagation
-                          },
-                          data = list(obj=obj, action=action, handler=handler),
-                          user.data.first = TRUE,
-                          after = FALSE
-                        )
+            ## implement for rJava
+##             connectSignal(obj@widget,
+##                           signal = "button-press-event",
+##                           f = function(h, eventButton,...) {
+##                             if(eventButton$GetButton() == 3) {
+##                               h$handler(h,...)
+##                             }
+##                             return(FALSE)         # continue propagation
+##                           },
+##                           data = list(obj=obj, action=action, handler=handler),
+##                           user.data.first = TRUE,
+##                           after = FALSE
+##                         )
           })
 
 ## idle
@@ -1112,40 +1113,46 @@ setMethod("addpopupmenu",signature(obj="rJavaObject"),
           })
 
 
-## this does not get exported
+## ## this does not get exported
 addPopupMenuWithSignal = function(obj, toolkit,  menulist, action=NULL, signal="button-press-event", ...) {
-  theArgs = list(...)                      
-
-  missingMsg("addPopupMenuWithSignal");return()
-  
-  f = function(h, ...) {
-    mb = gmenu(h$action, popup = TRUE)
-    event = gdkEventNew(GdkEventType["button-press"])
-    mb = tag(mb,"mb")                   # the real menu bar
-    gtkMenuPopupHack(mb, button = event$GetButton(),
-                     activate.time=event$GetTime()
-                     )
-  }
-  ## .addhandler not exported
-  callbackID = .addHandler(obj,toolkit, signal = signal,handler=f, action=menulist)
-  invisible(callbackID)
+  cat("addPopupMenuWithSignal not implemented in gWidgetrJava\n")
+  return()
 }
+##   theArgs = list(...)                      
+
+##   missingMsg("addPopupMenuWithSignal");return()
+  
+##   f = function(h, ...) {
+##     mb = gmenu(h$action, popup = TRUE)
+##     event = gdkEventNew(GdkEventType["button-press"])
+##     mb = tag(mb,"mb")                   # the real menu bar
+##     gtkMenuPopupHack(mb, button = event$GetButton(),
+##                      activate.time=event$GetTime()
+##                      )
+##   }
+##   ## .addhandler not exported
+##   callbackID = .addHandler(obj,toolkit, signal = signal,handler=f, action=menulist)
+##   invisible(callbackID)
+## }
 
 add3rdMousePopupMenuWithSignal = function(obj, toolkit,  menulist, action=NULL, signal="button-press-event", ...) {
-  f = function(h, widget, event,...) {
-    if(event$GetButton() != 3) {
-      return(FALSE)                     # propogate signal
-    } else {
-      mb = gmenu(h$action$menulist, popup = TRUE, action=h$action$passedaction)
-      mb = tag(mb,"mb")                 # actual widget
-      gtkMenuPopupHack(mb,button = event$GetButton(),
-                       activate.time=event$GetTime()
-                       )
-    }
-  }
-  callbackID = .addHandler(obj,toolkit, signal = "button-press-event",handler=f, action=list(menulist=menulist, passedaction=action))
-  invisible(callbackID)
+  cat("3rd mouse popup not implemented in gWidgetsrJava\n")
+  return()
 }
+##   f = function(h, widget, event,...) {
+##     if(event$GetButton() != 3) {
+##       return(FALSE)                     # propogate signal
+##     } else {
+##       mb = gmenu(h$action$menulist, popup = TRUE, action=h$action$passedaction)
+##       mb = tag(mb,"mb")                 # actual widget
+##       gtkMenuPopupHack(mb,button = event$GetButton(),
+##                        activate.time=event$GetTime()
+##                        )
+##     }
+##   }
+##   callbackID = .addHandler(obj,toolkit, signal = "button-press-event",handler=f, action=list(menulist=menulist, passedaction=action))
+##   invisible(callbackID)
+## }
 
 
   
@@ -1246,9 +1253,14 @@ setReplaceMethod("dimnames",
                    .dimnames(x,x@toolkit) <- value
                    return(x)
                  })
-setGeneric("names")
+## as of 2.5.0 this became primiive
+if(as.numeric(R.Version()$major) <= 2 &
+   as.numeric(R.Version()$minor) <= 4.1) {
+  setGeneric("names")
+  setGeneric("names<-")
+}
+
 setMethod("names", "gWidgetrJava", function(x) .names(x,x@toolkit))
-setGeneric("names<-")
 setReplaceMethod("names",
                  signature(x="gWidgetrJava"),
                  function(x,value) {

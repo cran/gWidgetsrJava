@@ -113,13 +113,13 @@ is.dataframelike = function(obj) {
   }
 }
 
-## check if a gtkTreeViewCOlumn, make no GTK language
-is.gdataframecolumn = function(obj) {
-  if(class(obj)[1] == "GtkTreeViewColumn")
-    return(TRUE)
-  else
-    return(FALSE)
-}
+## ## check if a gtkTreeViewCOlumn, make no GTK language
+## is.gdataframecolumn = function(obj) {
+##   if(class(obj)[1] == "GtkTreeViewColumn")
+##     return(TRUE)
+##   else
+##     return(FALSE)
+## }
 
 ## Function to convert back and forth between R classes and GObject classes
 RtoGObjectConversion = function(obj) {

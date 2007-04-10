@@ -45,4 +45,7 @@ getWidget = function(widget) {
     widget = widget@widget
   return(widget)
 }
+setMethod(".getToolkitWidget",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit) getWidget(obj))
 

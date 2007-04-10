@@ -168,7 +168,7 @@ setClass("gFileURLrJava",
 gfileurl = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()) {
 
   frame = gframe(text = "<b>file</b>",markup=TRUE, horizontal=TRUE, container=container)
-  xentry = gfilebrowser(text="",width=40, container=NULL)
+  xentry = gfilebrowse(text="",width=40, container=NULL)
   xarg = addArg(argument=xlabel, xentry, container=frame)
   glabel("A url?",container=frame)
   doURL=gdroplist(c(FALSE,TRUE),container=frame)
@@ -409,7 +409,7 @@ glmer = function(container=NULL, ..., toolkit=guiToolkit()) {
   table = glayout(container=frame)
   table[1,1] = glabel("formula")
   table[1,2] = formulaEntry
-  table[2,1] = ilable("data=")
+  table[2,1] = glabel("data=")
   table[2,2] = dataEntry
   visible(table) <- TRUE
   

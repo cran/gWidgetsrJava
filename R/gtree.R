@@ -26,142 +26,143 @@ setMethod(".gtree",
                    ) {
 
             force(toolkit)
+            cat("gtree not implemented\n")
+            return()
+##             ## do we have first col. for icons?
+##             iconFudge = ifelse(is.null(icon.FUN), 0, 1)
             
-            ## do we have first col. for icons?
-            iconFudge = ifelse(is.null(icon.FUN), 0, 1)
-            
-            ## get base offspring
-            children = offspring(c(), offspring.data)
-            lst = getOffSpringIcons(children, hasOffspring, icon.FUN)
-            children = lst$children
-            doExpand = lst$doExpand
-            
-            
-            if(is.null(col.types))
-              col.types = children[1,]
+##             ## get base offspring
+##             children = offspring(c(), offspring.data)
+##             lst = getOffSpringIcons(children, hasOffspring, icon.FUN)
+##             children = lst$children
+##             doExpand = lst$doExpand
             
             
-            
-            ## get GTK types -- force first to be character
-            types = c("gchararray",sapply(col.types[-1],RtoGObjectConversion))
-            if(iconFudge == 1)
-              types = c("gchararray", types)       # stores filename of image
-            
-            ## define treestore
-            treestore = gtkTreeStoreNew(types)
-            ## define view
-            view = gtkTreeViewNewWithModel(treestore)
-            ##  if(nrow(children) > 15)
-            ##    view$SetFixedHeightMode(TRUE)       # speeds up this. FAILED?
-            view$SetSearchColumn(iconFudge)         # for CTRL-f
-            
-            ## define cellrender
-            colHeaders = names(children)
-            
-            for(i in (1+iconFudge):ncol(children)) {
-              cellrenderer = gtkCellRendererTextNew()
-              view.col = gtkTreeViewColumnNew()
-              ## properties
-              view.col$SetResizable(TRUE)
-              ## title
-              if(!is.na(colHeaders[i]) && !is.null(colHeaders[i]))
-                view.col$SetTitle(colHeaders[i])
-              view.col$SetSortColumnId(i-1)
-              view.col$PackStart(cellrenderer, TRUE)
-              view.col$AddAttribute(cellrenderer, "text", i-1)
-              view$InsertColumn(view.col,i-1)
-            }
-            
-            if(iconFudge == 1) {
-              cellrenderer = gtkCellRendererPixbufNew()
-              view.col = gtkTreeViewColumnNew()
-              view.col$PackStart(cellrenderer, TRUE)
-              view.col$AddAttribute(cellrenderer, "stock-id", 0)
-              view$InsertColumn(view.col,0)
-            }  
-            
-            ## pack into scrolled window
-            group = ggroup()
-            sw <- gtkScrolledWindowNew()
-            sw$SetPolicy("GTK_POLICY_AUTOMATIC","GTK_POLICY_AUTOMATIC")
-            sw$Add(view)
-            add(group, sw, expand=TRUE)
-            
-            ## allow multiple if asked
-            if(multiple) {
-              treeselection = view$GetSelection()
-#              treeselection$SetMode(GtkSelectionMode["multiple"])
-            }
+##             if(is.null(col.types))
+##               col.types = children[1,]
             
             
-            ## turn on alternating shading if more than 1 column
-            if(ncol(children) > 1)
-              view$SetRulesHint(TRUE)
+            
+##             ## get  types -- force first to be character
+##             types = c("gchararray",sapply(col.types[-1],RtoGObjectConversion))
+##             if(iconFudge == 1)
+##               types = c("gchararray", types)       # stores filename of image
+            
+##             ## define treestore
+##             treestore = gtkTreeStoreNew(types)
+##             ## define view
+##             view = gtkTreeViewNewWithModel(treestore)
+##             ##  if(nrow(children) > 15)
+##             ##    view$SetFixedHeightMode(TRUE)       # speeds up this. FAILED?
+##             view$SetSearchColumn(iconFudge)         # for CTRL-f
+            
+##             ## define cellrender
+##             colHeaders = names(children)
+            
+##             for(i in (1+iconFudge):ncol(children)) {
+##               cellrenderer = gtkCellRendererTextNew()
+##               view.col = gtkTreeViewColumnNew()
+##               ## properties
+##               view.col$SetResizable(TRUE)
+##               ## title
+##               if(!is.na(colHeaders[i]) && !is.null(colHeaders[i]))
+##                 view.col$SetTitle(colHeaders[i])
+##               view.col$SetSortColumnId(i-1)
+##               view.col$PackStart(cellrenderer, TRUE)
+##               view.col$AddAttribute(cellrenderer, "text", i-1)
+##               view$InsertColumn(view.col,i-1)
+##             }
+            
+##             if(iconFudge == 1) {
+##               cellrenderer = gtkCellRendererPixbufNew()
+##               view.col = gtkTreeViewColumnNew()
+##               view.col$PackStart(cellrenderer, TRUE)
+##               view.col$AddAttribute(cellrenderer, "stock-id", 0)
+##               view$InsertColumn(view.col,0)
+##             }  
+            
+##             ## pack into scrolled window
+##             group = ggroup()
+##             sw <- gtkScrolledWindowNew()
+##             sw$SetPolicy("GTK_POLICY_AUTOMATIC","GTK_POLICY_AUTOMATIC")
+##             sw$Add(view)
+##             add(group, sw, expand=TRUE)
+            
+##             ## allow multiple if asked
+##             if(multiple) {
+##               treeselection = view$GetSelection()
+## #              treeselection$SetMode(GtkSelectionMode["multiple"])
+##             }
+            
+            
+##             ## turn on alternating shading if more than 1 column
+##             if(ncol(children) > 1)
+##               view$SetRulesHint(TRUE)
             
 
-            obj = new("gTreerJava", block=group, widget=view,
-              toolkit=toolkit,ID=getNewID())
+##             obj = new("gTreerJava", block=group, widget=view,
+##               toolkit=toolkit,ID=getNewID())
 
-            tag(obj,"store") <- treestore
-            tag(obj,"view") <- view
-            tag(obj,"offspring") =offspring
-            tag(obj,"hasOffspring") = hasOffspring
-            tag(obj,"noffspring.data") = offspring.data
-            tag(obj,"icon.FUN") = icon.FUN
-            tag(obj,"iconFudge") = iconFudge
-            tag(obj,"chosencol") = chosencol
-            tag(obj,"multiple") = multiple
-            tag(obj,"ncols") = length(types)
+##             tag(obj,"store") <- treestore
+##             tag(obj,"view") <- view
+##             tag(obj,"offspring") =offspring
+##             tag(obj,"hasOffspring") = hasOffspring
+##             tag(obj,"noffspring.data") = offspring.data
+##             tag(obj,"icon.FUN") = icon.FUN
+##             tag(obj,"iconFudge") = iconFudge
+##             tag(obj,"chosencol") = chosencol
+##             tag(obj,"multiple") = multiple
+##             tag(obj,"ncols") = length(types)
           
-            ## put in children, handler for exapnd-row
-            addChildren(treestore, children, doExpand, iconFudge, parent.iter=NULL)
+##             ## put in children, handler for exapnd-row
+##             addChildren(treestore, children, doExpand, iconFudge, parent.iter=NULL)
             
-            ## now add a handler to row-exapnd
-            addhandler(obj,"row-expanded",action = offspring.data,
-                       handler = function(h,view, iter, path,...) {
-                         children = offspring(.getValuesFromIter(h$obj,iter),h$action)
+##             ## now add a handler to row-exapnd
+##             addhandler(obj,"row-expanded",action = offspring.data,
+##                        handler = function(h,view, iter, path,...) {
+##                          children = offspring(.getValuesFromIter(h$obj,iter),h$action)
                          
-                         lst = getOffSpringIcons(children, hasOffspring, icon.FUN)
-                         children = lst$children
-                         doExpand = lst$doExpand
+##                          lst = getOffSpringIcons(children, hasOffspring, icon.FUN)
+##                          children = lst$children
+##                          doExpand = lst$doExpand
                          
-                         addChildren(treestore, children, doExpand,
-                                     tag(h$obj,"iconFudge"), iter)
-                         ## remove errant offspring
-                         child.iter = treestore$IterChildren(iter)
-                         if(child.iter$retval)
-                           treestore$Remove(child.iter$iter)
-                       })
+##                          addChildren(treestore, children, doExpand,
+##                                      tag(h$obj,"iconFudge"), iter)
+##                          ## remove errant offspring
+##                          child.iter = treestore$IterChildren(iter)
+##                          if(child.iter$retval)
+##                            treestore$Remove(child.iter$iter)
+##                        })
             
             
-            addhandler(obj,"row-collapsed",
-                       handler = function(h, view, iter, path, ...) {
-                         ## debug
-                         string = treestore$GetPath(iter)$ToString()
-                         ## get children, remove
-                         n = treestore$IterNChildren(iter)
-                         if(n > 1) { ## n=1 gets removed when expanded
-                           for(i in 1:(n-1)) {
-                             child.iter = treestore$IterChildren(iter)
-                             if(child.iter$retval)
-                               treestore$Remove(child.iter$iter)
-                           }
-                         }
-                       })
+##             addhandler(obj,"row-collapsed",
+##                        handler = function(h, view, iter, path, ...) {
+##                          ## debug
+##                          string = treestore$GetPath(iter)$ToString()
+##                          ## get children, remove
+##                          n = treestore$IterNChildren(iter)
+##                          if(n > 1) { ## n=1 gets removed when expanded
+##                            for(i in 1:(n-1)) {
+##                              child.iter = treestore$IterChildren(iter)
+##                              if(child.iter$retval)
+##                                treestore$Remove(child.iter$iter)
+##                            }
+##                          }
+##                        })
             
-            if(!is.null(handler)) {
-              id = addhandlerdoubleclick(obj,handler,action)
-              tag(obj, "handler.id") <- id
-            }
+##             if(!is.null(handler)) {
+##               id = addhandlerdoubleclick(obj,handler,action)
+##               tag(obj, "handler.id") <- id
+##             }
             
-            ## attach to container
-            if (!is.null(container)) {
-              if(is.logical(container) && container == TRUE)
-                container = gwindow(visible=TRUE)
-              add(container, obj)
-            }
+##             ## attach to container
+##             if (!is.null(container)) {
+##               if(is.logical(container) && container == TRUE)
+##                 container = gwindow(visible=TRUE)
+##               add(container, obj)
+##             }
             
-            return(obj)
+##             return(obj)
           })
 
 ## Take the data frame and massage it to return

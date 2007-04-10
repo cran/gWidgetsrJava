@@ -60,6 +60,16 @@ setReplaceMethod(".leftBracket",
 
             theArgs = list(...)         # look for expand, anchor
 
+            ## check that widget is correct
+            if(is.character(value)) value = glabel(value)
+            value = try(getWidget(value),silent=TRUE)
+            if(inherits(value,"try-error")) {
+              warn("value is not a gwidget or character\n")
+              return()
+            }
+
+
+            
             ## anchor is a pair of (x,y) coordinates with
             ## (-1,1) being upper left, (1,-1) lower left
             ## values are -1,0, or 1.
@@ -112,7 +122,6 @@ setReplaceMethod(".leftBracket",
               ifelse(!is.null(theArgs$expand) && theArgs$expand,c$BOTH,c$fill), #fill?
               ins, c$ipadx, c$ipady)
 
-            value = getWidget(value)
             pane = x@widget
             .jcall(pane,"V",
                    "add",

@@ -955,6 +955,10 @@
 \alias{.names<-,gGridrJava,guiWidgetsToolkitrJava-method}
 \alias{.names<-,gNotebookrJava,guiWidgetsToolkitrJava-method} 
 %%
+%%
+%% -- .getToolkitWidget --
+\alias{.getToolkitWidget,gWidgetrJava,guiWidgetsToolkitrJava-method}
+%%
 %% -- [<-
 \alias{[<-,gWidgetrJava-method}
 \alias{[<-,gCheckboxrJava-method}

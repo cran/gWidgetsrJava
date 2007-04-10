@@ -3,12 +3,13 @@
   require(rJava)
 
   ## we supply our own JavaGD class
-  ## Sys.putenv deprecated
-  rVersion = as.numeric(R.version$minor)
-  if(rVersion >= 5.0)
-    Sys.setenv("JAVAGD_CLASS_NAME"="org/rosuda/JGR/toolkit/JavaGD")
-  else
-    Sys.putenv("JAVAGD_CLASS_NAME"="org/rosuda/JGR/toolkit/JavaGD")
+    Sys.setenv("JAVAGD_CLASS_NAME"="org/rosuda/JGR/toolkit/JavaGD")  
+  ## Sys.putenv deprecated -- did have this
+#  rVersion = as.numeric(R.version$minor)
+#  if(rVersion >= 5.0)
+#    Sys.setenv("JAVAGD_CLASS_NAME"="org/rosuda/JGR/toolkit/JavaGD")
+#  else
+#    Sys.putenv("JAVAGD_CLASS_NAME"="org/rosuda/JGR/toolkit/JavaGD")
   
 
   

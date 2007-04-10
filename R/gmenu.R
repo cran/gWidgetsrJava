@@ -236,57 +236,6 @@ setReplaceMethod(".leftBracket",
             return(obj)
           })
 
-###
-
-## ## some helper functions for this
-## .isLeaf = function(lst) {
-##   if(is.list(lst) & !is.null(lst$handler)) return(TRUE)
-##   return(FALSE)
-## }
-
-## ## workhorse for this
-## addSubMenu = function(subMenu, menu.list, action=NULL, ...) {
-  
-##   for(i in names(menu.list)) {
-##     data = menu.list[[i]]
-    
-##     if(!.isLeaf(data)) {
-##       ## do submenu
-##       item = .jnew("javax/swing/JMenuItem",i)
-##       subMenu$add(item)
-##     } else {
-##       ## what name
-##       if(!is.null(data$label))
-##         theName = data$label
-##       else
-##         theName = i
-##       ## make a menuitem
-##       item = .jnew("javax/swing/JMenuItem",theName)
-
-## ##       if(!is.null(data$icon)) {
-## ##         icon = data$icon
-## ##         if(file.exists(icon)) {
-## ##           ## a file on system
-## ##           image = gtkImageNewFromFile(icon)
-## ##         } else {
-## ##           ## assume a stock icon file
-## ##           icon = getstockiconname(icon)
-## ##           item = gtkImageMenuItemNewWithLabel(theName)
-## ##           image = gtkImageNew()
-## ##           image$SetFromStock(icon,size=GtkIconSize["menu"])
-## ##         }
-## ##         item$SetImage(image)
-## ##       }  else {
-## ##         item = gtkMenuItem(theName)
-## ##       }
-##       subMenu$add(item)
-##       ## add handler
-##       cat("gmenu: add handler to menuitem\n")
-## ##      item$AddCallback("activate",data$handler, data=list(action=action))
-##     } 
-##   }
-## }
-
 ##################################################
 ## helper functions
 addNewTopItem = function(mb,text,...) {
