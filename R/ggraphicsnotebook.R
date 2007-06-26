@@ -22,7 +22,7 @@ setMethod(".ggraphicsnotebook",
             invisible()
 
 
-            group = ggroup(horizontal = FALSE, container=container)
+            group = ggroup(horizontal = FALSE, container=container, ...)
             
             ## make toolbar
             toolbargroup = ggroup(horizontal=TRUE, container=group)

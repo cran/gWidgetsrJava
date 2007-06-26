@@ -45,7 +45,7 @@ setMethod(".gradio",
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE, toolkit=obj@toolkit)
-              add(container,  obj)
+              add(container,  obj, ...)
             }
   
             ## add handler

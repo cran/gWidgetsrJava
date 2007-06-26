@@ -19,7 +19,7 @@ setMethod(".gdfnotebook",
             ## set up notebook
             ## put notebook into a group
             nb = gnotebook(...)
-            mainGroup = ggroup(horizontal=FALSE, container=container)
+            mainGroup = ggroup(horizontal=FALSE, container=container, ...)
 
             obj = new("gDfNotebookrJava",
               block=mainGroup,

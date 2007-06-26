@@ -44,7 +44,7 @@ setMethod(".ggroup",
             if(!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE, toolkit=toolkit)
-              add(container, obj)
+              add(container, obj, ...)
             }
 
             ## raise if we drag across

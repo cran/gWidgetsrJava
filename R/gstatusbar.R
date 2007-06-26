@@ -9,10 +9,13 @@ setMethod(".gstatusbar",
           function(toolkit,
                    text="", container=NULL, ...) {
 
-            group = ggroup(horizontal = TRUE)
-            statusbar = glabel("text", container=group)
-
             force(toolkit)            
+
+            theArgs = list(...)
+            theArgs$horizontal=TRUE
+            group = do.call("ggroup", theArgs)
+            statusbar = glabel(text)
+            add(group, statusbar, expand=TRUE)
             
             obj = new("gStatusbarrJava",block=group, widget=statusbar, toolkit=toolkit, ID=getNewID())
             

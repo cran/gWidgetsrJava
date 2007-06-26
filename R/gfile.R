@@ -95,8 +95,13 @@ setMethod(".gfilebrowse",
                    text="Select a file...", type="open",  quote=TRUE,
                    container=NULL, ...) {
 
-
-            group = ggroup(horizontal=TRUE, container=container)
+            theArgs = list(...)
+            contArgs = list(horizontal=TRUE, container=container)
+            if(!is.null(theArgs$expand)) contArgs$expand = theArgs$expand
+            if(!is.null(theArgs$anchor)) contArgs$anchor = theArgs$anchor
+            if(!is.null(theArgs$label)) contArgs$anchor = theArgs$label
+            
+            group = do.call("ggroup", contArgs)
             entry = gedit(text=text, width=20, container=group, ...)
             browseButton = gbutton("browse",container=group)
 
@@ -105,7 +110,7 @@ setMethod(".gfilebrowse",
               
               ## in this h is gFile object, not gBrowse object
               gfile(text=text,
-                    type = "save",
+                    type = type,
                     handler = function(h,...) svalue(entry) <- h$file,
                     quote = TRUE
                     )

@@ -48,7 +48,10 @@ setMethod(".gconfirm",
               .jnew("java/lang/String",icon)
               )
             ## 1 for yes, 0 for no -1 for cancel
-            return(ans)
+            if(ans == 1)
+              invisible(TRUE)
+            else
+              invisible(FALSE)
           })
 
 
@@ -82,7 +85,7 @@ setMethod(".ginput",
             if(!is.null(handler)) 
               handler(list(obj=NULL, action=action, input=ans))
                       
-            return(ans)
+            invisible(ans)
             
             
           })
@@ -115,10 +118,10 @@ setMethod(".gbasicdialog",
               if(!is.null(handler)) {
                 handler(list(ref=widget,widget=widget,action=action, ...))
               }
-              return(TRUE)
+              return(invisible(TRUE))
             } else {
               ## no
-              return(FALSE)
+              return(invisible(FALSE))
             }
             
             return(ans)

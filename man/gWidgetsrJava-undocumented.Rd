@@ -378,6 +378,8 @@
 \alias{.add,gMenurJava,guiWidgetsToolkitrJava,guiWidget-method}
 \alias{.add,gMenurJava,guiWidgetsToolkitrJava,gMenurJava-method}
 \alias{.add,gMenurJava,guiWidgetsToolkitrJava,list-method}
+\alias{.add,gLayoutrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
+\alias{.add,gAddrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gNotebookrJava,guiWidgetsToolkitrJava,guiWidget-method}
 \alias{.add,gNotebookrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gTextrJava,guiWidgetsToolkitrJava,character-method}

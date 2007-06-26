@@ -43,7 +43,7 @@ setMethod(".gmenu",
               if(is.logical(container) && container == TRUE) {
                 add(gwindow(visible=TRUE), obj)
               } else {
-                add(container, obj)
+                add(container, obj, ...)
               }
             }
             
@@ -208,7 +208,7 @@ setMethod("[",
 setMethod(".leftBracket",
           signature(toolkit="guiWidgetsToolkitrJava",x="gMenurJava"),
           function(x, toolkit, i, j, ..., drop=TRUE) {
-            lst = svalue(obj)
+            lst = svalue(x)
             if(missing(i))
               return(lst)
             else

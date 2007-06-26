@@ -152,7 +152,7 @@ setMethod(".gvarbrowser",
             
             theHandler=handler
             theAction=action
-            g = ggroup(horizontal=FALSE, container=container)
+            g = ggroup(horizontal=FALSE, container=container, ...)
             n = gnotebook(tab.pos=2)
 
             obj = new("gVarbrowserrJava",block=g, widget=n,

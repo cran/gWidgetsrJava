@@ -58,7 +58,7 @@ setMethod(".gcheckboxgroup",
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE, toolkit=obj@toolkit)
-              add(container,  obj)
+              add(container,  obj, ...)
             }
             
             return(obj)
@@ -75,7 +75,7 @@ setMethod(".svalue",
             vals = sapply(lst, svalue)         # logicals
 
             if(!is.null(index) && index == TRUE) {
-              return(vals)
+              return(which(vals))       # return indices
             } else {
               vals = tag(obj,"items")[vals]
               coerce.with = obj@coercewith

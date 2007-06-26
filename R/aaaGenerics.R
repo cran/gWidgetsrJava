@@ -90,7 +90,7 @@ setClass("gContainerrJava",
 
 setMethod("svalue",signature(obj="gWidgetrJava"),
           function(obj, index=NULL, drop=NULL, ...) {
-            .svalue(obj, obj@toolkit, index=NULL, drop=NULL, ...)
+            .svalue(obj, obj@toolkit, index=index, drop=drop, ...)
           })
 
 
@@ -270,13 +270,9 @@ setReplaceMethod(".focus",
           function(obj, toolkit, ..., value) {
             value = as.logical(value)
 
-            missingMsg(".focus<-");return()
-            if(value) {
-              obj$GrabFocus()
-              obj$GetWindow()$Raise()
-            } else {
-              obj$GetWindow()$Lower()
-            }
+            if(value)
+              tkfocus(obj@widget@block)
+
             return(obj)
 
           })

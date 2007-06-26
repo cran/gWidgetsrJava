@@ -58,7 +58,7 @@ setClass("gAddargrJava",
 
 addArg = function(argument,iwidget,container = NULL, toolkit=guiToolkit()) {
   
-  group = ggroup(horizontal=TRUE, container=container)
+  group = ggroup(horizontal=TRUE, container=container, ...)
   label = glabel(text=Paste(argument,"= "), container=group)
   add(group,iwidget)
 
@@ -109,7 +109,7 @@ setClass("gUnivariaterJava",
          )
 
 gunivariate = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()) {
-  frame = gframe(text = "<b>data</b>",markup=TRUE, horizontal=TRUE, container=container)
+  frame = gframe(text = "<b>data</b>",markup=TRUE, horizontal=TRUE, container=container, ...)
   
   xentry = gedit(text="",width=30, container=NULL)
   xarg = addArg(argument=xlabel, xentry, container=frame)
@@ -136,7 +136,7 @@ setClass("gUnivariateTablerJava",
 
 gunivariatetable = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()) {
 
-  frame = gframe(text = "<b>data</b>",markup=TRUE, horizontal=TRUE, container=container)
+  frame = gframe(text = "<b>data</b>",markup=TRUE, horizontal=TRUE, container=container, ...)
   xentry = gedit(text="",width=30, container=NULL)
   xarg = addArg(argument=xlabel, xentry, container=frame)
   glabel(" Tabulate data?",container=frame)
@@ -167,7 +167,7 @@ setClass("gFileURLrJava",
 
 gfileurl = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()) {
 
-  frame = gframe(text = "<b>file</b>",markup=TRUE, horizontal=TRUE, container=container)
+  frame = gframe(text = "<b>file</b>",markup=TRUE, horizontal=TRUE, container=container, ...)
   xentry = gfilebrowse(text="",width=40, container=NULL)
   xarg = addArg(argument=xlabel, xentry, container=frame)
   glabel("A url?",container=frame)
@@ -196,7 +196,7 @@ setClass("gBivariaterJava",
 gbivariate = function(xlabel = "x", ylabel = "y", container=NULL, ...,
   toolkit=guiToolkit()) {
   
-  frame = gframe(text = "<b>data</b>",markup=TRUE, horizontal=TRUE, container=container)
+  frame = gframe(text = "<b>data</b>",markup=TRUE, horizontal=TRUE, container=container, ...)
 
   xentry = gedit(text="",width=30, container=NULL)
 #  adddroptarget(xentry, handler = basicdrophandler)
@@ -239,7 +239,7 @@ setClass("gModelrJava",
 
 gmodel = function(lattice=FALSE, container=NULL,...,toolkit=guiToolkit()) {
   ## containers
-  frame = gframe(text = "<b>data</b>",markup=TRUE,  horizontal=FALSE, container=container)
+  frame = gframe(text = "<b>data</b>",markup=TRUE,  horizontal=FALSE, container=container, ...)
   line1 =ggroup(horizontal=TRUE, container=frame)
   if(lattice)
     conditionLine = ggroup(horizontal=TRUE, container=frame) # add if there is lattice
@@ -402,7 +402,7 @@ setClass("gLmerrJava",
 ## interface for linear mixed effects models models
 glmer = function(container=NULL, ..., toolkit=guiToolkit()) {
   
-  frame = gframe(text = "<b>data</b>",markup=TRUE,  horizontal=FALSE, container=container)
+  frame = gframe(text = "<b>data</b>",markup=TRUE,  horizontal=FALSE, container=container, ...)
   formulaEntry = gedit("", width=40)
   dataEntry = gedit("")
   

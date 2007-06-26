@@ -40,7 +40,7 @@ setMethod(".gcommandline",
             }
             
             ## the main widgets
-            group = ggroup(horizontal=FALSE, cont=container)
+            group = ggroup(horizontal=FALSE, cont=container, ...)
             ## toolbar
             toolbar = list(
               open = list(

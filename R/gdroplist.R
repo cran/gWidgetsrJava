@@ -60,12 +60,12 @@ setMethod(".gdroplist",
  ##                 svalue(obj) <- name
  ##               }
  ##             })
-cat("gdroplist: Add drop handler\n" )
+            ## cat("gdroplist: Add drop handler\n" )
             
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE)
-              add(container, obj)
+              add(container, obj, ...)
             }
             
             if (!is.null(handler)) {

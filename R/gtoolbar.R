@@ -37,7 +37,7 @@ setMethod(".gtoolbar",
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE)
-              add(container, obj, expand=TRUE)
+              add(container, obj, expand=TRUE, anchor=c(-1,1))
             }
 
             invisible(obj)

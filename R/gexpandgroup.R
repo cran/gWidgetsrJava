@@ -61,7 +61,7 @@ setMethod(".addSpring",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gExpandgrouprJava"),
           function(obj, toolkit,  ...) {
             ## add value to expandgroup
-            addSprint(obj@widget, ...)
+            addSpring(obj@widget, ...)
           })
 
 

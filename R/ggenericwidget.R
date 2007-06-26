@@ -111,7 +111,8 @@ setMethod(".ggenericwidget",
             
             
             ## add to this box, this is what gets returned
-            mainGroup = ggroup(horizontal=FALSE, spacing=10, container=container)
+            mainGroup = ggroup(horizontal=FALSE, spacing=10,
+              container=container, ...)
             
             ## Data
             if(!is.null(lst$variableType)) {

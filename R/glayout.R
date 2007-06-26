@@ -39,13 +39,22 @@ setMethod(".glayout",
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE)
-              add(container, obj)
+              add(container, obj, ...)
             }
             
             
             invisible(obj)
           })
-          
+
+### Add is a stub so that same syntax works with tcltk
+setMethod(".add",
+          signature(toolkit="guiWidgetsToolkitrJava", obj="gLayoutrJava",
+                    value="gWidgetrJava"),
+          function(obj, toolkit, value, ...) {
+            ## stub
+          })
+
+
 ## how we populate the table
 setReplaceMethod("[",
                  signature(x="gLayoutrJava"),
@@ -144,6 +153,6 @@ setMethod(".visible",
 setReplaceMethod(".visible",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gLayoutrJava"),
                  function(obj, toolkit, ..., value) {
-                   cat("visible()<- not necessary in rJava\n")
+                   ## cat("visible()<- not necessary in rJava\n")
                    return(obj)
                  })

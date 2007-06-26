@@ -13,7 +13,7 @@ setMethod(".ghelp",
 
             force(toolkit)
             
-            group = ggroup(horizontal=FALSE, container = container)
+            group = ggroup(horizontal=FALSE, container = container, ...)
             notebook = gnotebook(...)
             add(group, notebook, expand=TRUE)
 
