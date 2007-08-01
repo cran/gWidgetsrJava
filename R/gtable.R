@@ -182,3 +182,18 @@ setMethod(".addhandlerchanged",
             addhandlerdoubleclick(obj, handler, action)
           })
 
+
+setMethod(".addhandlerclicked",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gTablerJava"),
+          function(obj, toolkit, handler, action=NULL, ...) {
+
+            ## for gTable
+            ID = addJHandler(obj,handler, action,
+              type = "addMouseListener",
+              event = "MouseClicked",
+              class = "java/awt/event/MouseListener")
+           return(ID)
+
+            
+          })
+

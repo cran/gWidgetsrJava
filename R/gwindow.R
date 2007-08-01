@@ -3,6 +3,7 @@ setMethod(".gwindow",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
                    title="Window", visible=TRUE,
+                   width = NULL, height = NULL,
                    handler=NULL, action = NULL,
                    ...
                    ) {
@@ -13,7 +14,18 @@ setMethod(".gwindow",
             UIM = .jnew("javax/swing/UIManager")
             UIM$setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             
-            .jcall(window,,"setSize",as.integer(200),as.integer(200))
+
+            ## set Preferred size.
+            ## use size<- to set minimum size
+            if(!is.null(width)) {
+              if(is.null(height)) height = .7 * width
+            } else {
+              width <- height <- 200
+            }
+            
+            d = .jnew("java/awt/Dimension", as.integer(width), as.integer(height))
+            .jcall(.jcast(window,"javax/swing/JComponent"),"V","setPreferredSize",d)
+
             ## should be JFrame.EXIT_ON_CLOSE
             ## window$setDefaultLookAndFeelDecorated(TRUE)
             window$setDefaultCloseOperation(as.integer(1))

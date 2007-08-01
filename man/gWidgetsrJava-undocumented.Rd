@@ -712,6 +712,7 @@
 \alias{.addhandlerclicked,gGridrJava,guiWidgetsToolkitrJava-method}
 \alias{.addhandlerclicked,gImagerJava,guiWidgetsToolkitrJava-method}
 \alias{.addhandlerclicked,gLabelrJava,guiWidgetsToolkitrJava-method}
+\alias{.addhandlerclicked,gTablerJava,guiWidgetsToolkitrJava-method}
 \alias{.addhandlerclicked,gCheckboxrJava,guiWidgetsToolkitrJava-method}
 \alias{.addhandlerclicked,gRadiorJava,guiWidgetsToolkitrJava-method}
 %%
