@@ -39,7 +39,7 @@ setMethod(".gdf",
             x = items
 
             if(!is.data.frame(x))
-              x = as.data.frame(x)
+              x = as.data.frame(x, stringsAsFactors = FALSE)
 
 
             ## fix up table

@@ -9,12 +9,13 @@ setMethod(".gframe",
           function(toolkit,
                    text = "", markup=FALSE,
                    pos = 0, ## pos in [0,1] 0 for left, (.01,.99) center, 1 for right
+                   horizontal=TRUE,
                    container=NULL,
                    ...) {
 
             force(toolkit)
 
-            gp = .ggroup(..., toolkit=toolkit)
+            gp = .ggroup(..., horizontal=horizontal, toolkit=toolkit)
             pane = getWidget(gp)
 
             ## we can't do any markup here. Font() could be used
@@ -26,12 +27,16 @@ setMethod(".gframe",
             border = .jnew("javax/swing/BorderFactory")
             ## incorporate position
             titledBorder = border$createTitledBorder(text)
-            if(pos == 1)
-              titledBorder$setTitleJustification(titledBorder$RIGHT)
-            else if(.01 < pos && pos < .99)
-              titledBorder$setTitleJustification(titledBorder$CENTER)
-            else
-              titledBorder$setTitleJustification(titledBorder$LEFT)
+            ## this next is giving an error message rjav0.5
+
+            ## need to figure out pos argument
+            ##             titledBorder$setTitleJustification(.jfield(titledBorder,name="RIGHT"),"x")
+##             if(pos == 1)
+##               try(titledBorder$setTitleJustification(.jfield(titledBorder,name="RIGHT")))
+##             else if(.01 < pos && pos < .99)
+##               try(titledBorder$setTitleJustification(.jfield(titledBorder,name="CENTER")))
+##             else
+##               try(titledBorder$setTitleJustification(.jfield(titledBorder,name="LEFT")))
 
             ## set the border
             .jcall(

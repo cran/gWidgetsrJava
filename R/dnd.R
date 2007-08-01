@@ -5,8 +5,9 @@
 ## function used by rJavaObject and gWidgetrJava
 addDropSource = function(obj, toolkit, targetType="text", handler=NULL, action=NULL, ...) {
   jobj = getWidget(obj)
-  jobj$setDragEnabled(TRUE)
-  
+  x = try(jobj$setDragEnabled(TRUE), silent=TRUE)
+  if(inherits(x,"try-error"))
+    cat(x,"\n")
 }
 
 

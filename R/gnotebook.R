@@ -24,10 +24,10 @@ setMethod(".gnotebook",
             
             ## tab placement: 1,2,3,4 -> 3,0,2,1
             types = c(
-              notebook$BOTTOM,
-              notebook$LEFT,
-              notebook$TOP,
-              notebook$RIGHT)
+              .jfield(notebook,name="BOTTOM"),
+              .jfield(notebook,name="LEFT"),
+              .jfield(notebook,name="TOP"),
+              .jfield(notebook,name="RIGHT"))
             tabposition = types[tab.pos]
             .jcall(notebook,,"setTabPlacement",as.integer(tabposition))
 

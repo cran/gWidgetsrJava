@@ -21,6 +21,17 @@ stripWhiteSpace = function(str) {
   sub('^[[:space:]]+', '', str) ## from ?gsub
   return(str)
 }
+## what type of object is thixs and a size
+str2 <- function(obj) {
+  md <- mode(obj)
+  if (is.matrix(obj))  md <- "matrix"
+  obj.class <- oldClass(obj)
+  if (!is.null(obj.class)) {
+    md <- obj.class[1]
+  }
+  return(md)
+}
+
 
 
 quoteIfNeeded = function(str) {

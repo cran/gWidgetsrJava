@@ -153,7 +153,8 @@ setMethod(".size",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit, ...) {
             d = obj@widget$getSize()    # a Dimension object
-            return(c(d$width,d$height))
+            return(c(.jfield(d,name="width"),
+                     .jfield(d,name="height")))
           })
 
 ## size<-
@@ -268,16 +269,18 @@ setReplaceMethod(".focus",
 setReplaceMethod(".focus",
           signature(toolkit="guiWidgetsToolkitrJava",obj="rJavaObject"),
           function(obj, toolkit, ..., value) {
+            notImplemented("rJavaObject",".focus")
             value = as.logical(value)
 
             if(value)
-              tkfocus(obj@widget@block)
+              ## fpcis obj
 
             return(obj)
 
           })
 
 ## font
+## weight and style are f*ed up
 .font.styles = list(
   families = c("normal","sans","serif","monospace"),
   weights = c("normal","oblique","italic"),
@@ -297,17 +300,11 @@ setMethod("font",signature(obj="gWidgetrJava"),
 ## font<-
 setReplaceMethod("font",signature(obj="gWidgetrJava"),
           function(obj, ..., value) {
-            .font(obj, obj@toolkit,...) <- value
+            .font(obj, obj@toolkit,...) <- .fixFontMessUp(value)
             return(obj)
           })
 setReplaceMethod(".font",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
-                 function(obj, toolkit, ..., value) {
-                   .font(obj@widget, toolkit, ...) <- value
-                   return(obj)
-                 })
-setReplaceMethod(".font",
-                 signature(toolkit="guiWidgetsToolkitrJava",obj="rJavaObject"),
                  function(obj, toolkit, ..., value) {
                    string = ""
                    if(!is.null(value$family) && value$family %in% .font.styles$families)
@@ -321,11 +318,12 @@ setReplaceMethod(".font",
                    if(!is.null(value$size))
                      string = Paste(string," ",as.integer(value$size))
                    
+                   ## return obj!!
+                   missingMsg(".font<-");return(obj)
 
-                   missingMsg(".font<-");return()
-
+                   ## This is from RGtk2, need to modify
                    fontDescr = pangoFontDescriptionFromString(string)
-                   obj$ModifyFont(fontDescr)
+                   getWidget(obj)$ModifyFont(fontDescr)
                    
                    return(obj)
                  })
@@ -608,18 +606,18 @@ setMethod(".add",
             if(!is.null(anchor)) {
               tmp = .jcast(widget,"java/awt/Component")
               if(anchor[1] == 1)
-                .jcall(widget,"V","setAlignmentX",.jfloat(tmp$RIGHT_ALIGNMENT))
+                .jcall(widget,"V","setAlignmentX",.jfloat(.jfield(tmp,name="RIGHT_ALIGNMENT")))
               else if(anchor[1] == 0)
-                .jcall(widget,"V","setAlignmentX",.jfloat(tmp$CENTER_ALIGNMENT))
+                .jcall(widget,"V","setAlignmentX",.jfloat(.jfield(tmp,name="CENTER_ALIGNMENT")))
               else 
-                .jcall(widget,"V","setAlignmentX",.jfloat(tmp$LEFT_ALIGNMENT))
+                .jcall(widget,"V","setAlignmentX",.jfloat(.jfield(tmp,name="LEFT_ALIGNMENT")))
 
               if(anchor[2] == 1)
-                .jcall(widget,"V","setAlignmentY",.jfloat(tmp$TOP_ALIGNMENT))
+                .jcall(widget,"V","setAlignmentY",.jfloat(.jfield(tmp,name="TOP_ALIGNMENT")))
               else if(anchor[2] == 0)
-                .jcall(widget,"V","setAlignmentY",.jfloat(tmp$CENTER_ALIGNMENT))
+                .jcall(widget,"V","setAlignmentY",.jfloat(.jfield(tmp,name="CENTER_ALIGNMENT")))
               else 
-                .jcall(widget,"V","setAlignmentY",.jfloat(tmp$BOTTOM_ALIGNMENT))
+                .jcall(widget,"V","setAlignmentY",.jfloat(.jfield(tmp,name="BOTTOM_ALIGNMENT")))
               }
 
             .jcall(cont,"Ljava/awt/Component;", "add",

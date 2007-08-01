@@ -22,26 +22,14 @@ setMethod(".ggraphics",
             ## this is from iWidgets code in widgets.R
             ## This doesn't allow us to embed the device into a widget
             
-            JavaGD(name="JavaGD",width=force(width), height=force(height),
-                   ps=ps)
-            di <- dev.cur()
-            j <- .getJavaGDObject(di)
-            if (is.null(j)) {
-              gmessage("Unable to create Java graphics device.")
-              return(NA)
-            }
-#            c <- .jcall(j, "Ljavax/swing/JPanel;", "getPanel")
-#            if (is.null(c))
-#              c <- .jcall(j, "Ljava/awt/Canvas;", "getCanvas")
-#            if (is.null(c)) {
-#              dev.off()
-#              gmessage("Unable to get Java graphics content")
-#              return()
-#            }
+
+            gd = .jnew("org/rosuda/javaGD/GDCanvas", as.integer(force(width)),as.integer(force(height)))
+
+##             di <- dev.cur()
+
+            ## Do I need to mess with devices?
             
-            returnValue = glabel("graphics device should go here")
-            
-            obj = new("gGraphicsrJava",block=returnValue, widget=returnValue,
+            obj = new("gGraphicsrJava",block=gd, widget=gd,
               toolkit=toolkit,ID=getNewID())
             tag(obj,"device") <- dev.cur()
   
@@ -62,13 +50,6 @@ setMethod(".ggraphics",
 
 
 ### methods
-
-## adding to a group is funny, we intercept here
-setMethod(".add",
-          signature(toolkit="guiWidgetsToolkitrJava",obj="gContainerrJava", value="gGraphicsrJava"),
-          function(obj, toolkit, value, ...) {
-            cat("can't add a ggraphics() object to a container in gWidgetsrjava")
-          })
 
 
 

@@ -49,3 +49,17 @@ setMethod(".getToolkitWidget",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit) getWidget(obj))
 
+
+
+## warning
+notImplemented = function(class,method, errstr) {
+  cat("Not implemented: ")
+  if(!missing(class))
+    cat("class", class)
+  if(!missing(method))
+    cat("has a missing method:",method)
+  
+  if(!missing(errstr))
+    cat(errstr)
+  cat("\n")
+}

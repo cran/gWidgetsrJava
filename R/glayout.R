@@ -86,7 +86,7 @@ setReplaceMethod(".leftBracket",
               
             
             c = .jnew("java/awt/GridBagConstraints")
-            ins = .jcast(c$insets,"java/awt/Insets")
+            ins = .jcast(.jfield(c, name="insets"),"java/awt/Insets")
 
             anchor = theArgs$anchor
 
@@ -100,15 +100,15 @@ setReplaceMethod(".leftBracket",
               anchor = anchor+c(1,1)
               anchor = 3*anchor[1]+anchor[2]+1 # from 1 to 10
               possibilities = c(
-                c$LAST_LINE_START,
-                c$LINE_START,
-                c$FIRST_LINE_START,
-                c$PAGE_END,
-                c$CENTER,
-                c$PAGE_START,
-                c$LAST_LINE_END,
-                c$LINE_END,
-                c$FIRST_LINE_END)
+                .jfield(c,name="LAST_LINE_START"),
+                .jfield(c,name="LINE_START"),
+                .jfield(c,name="FIRST_LINE_START"),
+                .jfield(c,name="PAGE_END"),
+                .jfield(c,name="CENTER"),
+                .jfield(c,name="PAGE_START"),
+                .jfield(c,name="LAST_LINE_END"),
+                .jfield(c,name="LINE_END"),
+                .jfield(c,name="FIRST_LINE_END"))
               anchor = possibilities[anchor]
             }
                 
@@ -128,8 +128,12 @@ setReplaceMethod(".leftBracket",
               gridx, gridy, gridwidth, gridheight,
               gridweightx, gridweighty,
               anchor,
-              ifelse(!is.null(theArgs$expand) && theArgs$expand,c$BOTH,c$fill), #fill?
-              ins, c$ipadx, c$ipady)
+              ifelse(!is.null(theArgs$expand) && theArgs$expand,
+                     .jfield(c,name="BOTH"),
+                     .jfield(c,name="fill")
+                     ), #fill?
+              ins,
+              .jfield(c,name="ipadx"), .jfield(c,name="ipady"))
 
             pane = x@widget
             .jcall(pane,"V",

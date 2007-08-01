@@ -14,9 +14,12 @@ setMethod(".gbutton",
             
             theArgs = list(...)
             
-
-            
-            iconFile = gWidgetsrJavaIcons[[text]]
+            text = as.character(text)
+            allIcons = names(gWidgetsrJavaIcons)
+            if(text %in% allIcons)
+              iconFile = gWidgetsrJavaIcons[[text]]
+            else
+              iconFile = NULL
             if(!is.null(iconFile)) {
               ## put icon and text
               icon = .jnew("javax/swing/ImageIcon",iconFile)

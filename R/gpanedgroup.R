@@ -14,9 +14,9 @@ setMethod(".gpanedgroup",
             
             sp = .jnew("javax/swing/JSplitPane")
             if(horizontal) {
-              sp$setOrientation(sp$HORIZONTAL_SPLIT)
+              sp$setOrientation(.jfield(sp,name="HORIZONTAL_SPLIT"))
             } else {
-              sp$setOrientation(sp$VERTICAL_SPLIT)
+              sp$setOrientation(.jfield(sp,name="VERTICAL_SPLIT"))
             }
             
             ## left or right *or* top or bottom

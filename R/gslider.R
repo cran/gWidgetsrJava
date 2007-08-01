@@ -27,14 +27,17 @@ setMethod(".gslider",
             
             s = .jnew("javax/swing/JSlider")
             if(horizontal)
-              scale = .jnew("javax/swing/JSlider",s$HORIZONTAL,
+              scale = .jnew("javax/swing/JSlider",
+                .jfield(s,name="HORIZONTAL"),
                 as.integer(from),as.integer(to),as.integer(value))
             else
-              scale = .jnew("javax/swing/JSlider",s$VERTICAL,
+              scale = .jnew("javax/swing/JSlider",
+                .jfield(s,name="VERTICAL"),
                 as.integer(from),as.integer(to),as.integer(value))
 
             ## add in properties
             .jcall(scale,"V","setMajorTickSpacing",as.integer((to-from)/4));
+            .jcall(scale,"V","setMinorTickSpacing",as.integer((to-from)/8));
             .jcall(scale,"V","setPaintTicks", TRUE);
             .jcall(scale,"V","setPaintLabels", TRUE);
 

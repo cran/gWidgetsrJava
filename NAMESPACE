@@ -8,7 +8,8 @@ importFrom(gWidgets,
 "gframe", "gexpandgroup", "gnotebook", "glayout", "gpanedgroup",
 "gmessage", "ginput", "gconfirm", "gbasicdialog",
 "addStockIcons","getStockIcons",
-           "stockIconFromClass","stockIconFromObject"
+           "stockIconFromClass","stockIconFromObject",
+           ".fixFontMessUp"
 )
 
 importClassesFrom(gWidgets, 
@@ -61,7 +62,7 @@ importMethodsFrom(gWidgets,
 
 
 export("runHandlerFor")
-
+#export("str2")
 ##       "Paste","stripWhiteSpace","rpel","str1","str2","untaintName",
 ##        "stockIconFromClass","stockIconFromObject",
 ##        "Timestamp","Timestamp<-",
@@ -74,7 +75,7 @@ exportMethods(
 ".gmenu", ".gtoolbar", ".gtable", ".gdf", ".gdfnotebook", ".gtree",
 ".gfile", ".gfilebrowse", ".gcalendar", ".ggraphics",
 ".ggraphicsnotebook", ".gimage", ".gstatusbar", ".gseparator",
-".gcommandline", ".ghelp", ".ghelpbrowser", ".ggenericwidget",
+".gcommandline", ".ghelp", ".ghelpbrowser", 
 ".gvarbrowser", ".gwindow", ".ggroup", ".gframe", ".gexpandgroup",
 ".gnotebook", ".glayout", ".gpanedgroup", 
 "svalue", "svalue<-", "add", "addSpace", "addSpring", "delete",

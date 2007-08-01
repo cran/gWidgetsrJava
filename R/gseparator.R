@@ -17,9 +17,11 @@ setMethod(".gseparator",
             j = .jnew("javax/swing/JSeparator")
             
             if(horizontal) {
-              separator = .jnew("javax/swing/JSeparator",j$HORIZONTAL)
+              separator = .jnew("javax/swing/JSeparator",
+                .jfield(j,name="HORIZONTAL"))
             } else {
-              separator = .jnew("javax/swing/JSeparator",j$VERTICAL)
+              separator = .jnew("javax/swing/JSeparator",
+                .jfield(j,name="VERTICAL"))
             }
 
             obj = new("gSeparatorrJava", block=separator, widget=separator, toolkit=toolkit, ID=getNewID())

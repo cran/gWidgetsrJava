@@ -47,8 +47,9 @@ setMethod(".glabel",
                   .jnew("java/lang/String",title),
                   .jnew("java/lang/String",icon)
                   )
-                ## set the value
-                svalue(h$obj) <- ans
+                ## set the value unless cancel (returns NULL)
+                if(!is.null(ans))
+                  svalue(h$obj) <- ans
               }
             }
             

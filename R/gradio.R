@@ -128,6 +128,14 @@ checkboxLength = function(obj) {
   return(n)
 }
 
+## length
+setMethod(".length",
+          signature(toolkit="guiWidgetsToolkitrJava",x="gRadiorJava"),
+          function(x,toolkit) {
+            return(length(x[]))
+          })
+
+
 ## add in markup here
 setReplaceMethod(".leftBracket",
           signature(toolkit="guiWidgetsToolkitrJava",x="gRadiorJava"),

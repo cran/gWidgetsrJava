@@ -45,7 +45,7 @@ setMethod(".gfile",
             
             ## directories only
             if(type == "selectdir")
-              chooser$setFileSelectionMode(chooser$DIRECTORIES_ONLY)
+              chooser$setFileSelectionMode(.jfield(chooser,name="DIRECTORIES_ONLY"))
               
             
             ## open dialog -- its modal
@@ -59,7 +59,7 @@ setMethod(".gfile",
 
             
             ## dialog closing handled by java
-            if (retval == chooser$APPROVE_OPTION) {
+            if (retval == .jfield(chooser,name="APPROVE_OPTION")) {
               ## file selected
               selfile = chooser$getSelectedFile()
               filename = selfile$getPath()
@@ -69,7 +69,7 @@ setMethod(".gfile",
 
               ## how to return filename?
               return(filename)
-            } else if(retval == chooser$CANCEL_OPTION) {
+            } else if(retval == .jfield(chooser,name="CANCEL_OPTION")) {
               ## cancel
 
             }

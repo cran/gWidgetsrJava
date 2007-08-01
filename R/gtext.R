@@ -144,7 +144,8 @@ setMethod(".add",
             }
 
             ## now place cursor at end of buffer!
-            maxValue = .jnew("java/lang/Integer",as.integer(0))$MAX_VALUE
+            maxValue = .jnew("java/lang/Integer",as.integer(0))
+            maxValue = .jfield(maxValue,name="MAX_VALUE")
             sp = obj@block
             sp$getVerticalScrollBar()$setValue(maxValue);
           })

@@ -9,7 +9,7 @@ setClass("gExpandgrouprJava",
 setMethod(".gexpandgroup",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
-                   text="", markup=FALSE,
+                   text="", markup=FALSE, horizontal=TRUE,
                    handler=NULL, action=NULL,
                    container = NULL, ...){
 
@@ -19,7 +19,7 @@ setMethod(".gexpandgroup",
               .Platform$file.sep,sep="")
             exg = .jnew("gWidgetsrJava/gExpandGroup",text, iconDir )
             cont = exg$returnContainer()
-            group = ggroup(...)
+            group = ggroup(horizontal=horizontal, ...)
             .jcall(exg,"V","addComponent",
                    .jcast(getWidget(group),"java/awt/Component"))  
 

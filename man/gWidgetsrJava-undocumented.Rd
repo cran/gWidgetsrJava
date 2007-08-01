@@ -4,6 +4,9 @@
 
 \alias{runHandlerFor}
 
+
+
+
 %% These were copied from gWidgetsrRGtk2
 \alias{[-methods}
 \alias{[,gWidgetrJava-method}
@@ -981,6 +984,28 @@
 \alias{length,gWidgetrJava-method}
 \alias{length,gSubsetbyrJava-method}
 \alias{length,gDroplistrJava-method}
+
+%% gtablwithfilter
+\alias{.addhandlerchanged,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.addhandlerclicked,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.addhandlerdoubleclick,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{[<-,gTableWithFilterrJava-method}
+\alias{[,gTableWithFilterrJava-method}
+\alias{.dim,gTableWithFilterrJava,guiWidgetsToolkitrJava'-method}
+\alias{.ggenericwidget,ANY}
+\alias{.leftBracke,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.leftBracket,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.length,gRadiorJava,guiWidgetsToolkitrJava}
+\alias{.length,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.siz,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.svalu,gTableWithFilterrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
+\alias{.svalue,gTableWithFilterrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
+\alias{.dim,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.ggenericwidget,ANY-method}
+\alias{.leftBracket<-,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.length,gRadiorJava,guiWidgetsToolkitrJava-method}
+\alias{.size<-,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
+\alias{.svalue<-,gTableWithFilterrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 
 
 \title{Undocumented functions in gWidgetsrJava}
