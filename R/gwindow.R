@@ -3,7 +3,7 @@ setMethod(".gwindow",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
                    title="Window", visible=TRUE,
-                   width = NULL, height = NULL,
+                   width = NULL, height = NULL, location=NULL,
                    handler=NULL, action = NULL,
                    ...
                    ) {
@@ -22,10 +22,22 @@ setMethod(".gwindow",
             } else {
               width <- height <- 200
             }
-            
+
             d = .jnew("java/awt/Dimension", as.integer(width), as.integer(height))
             .jcall(.jcast(window,"javax/swing/JComponent"),"V","setPreferredSize",d)
 
+
+            ## set initial location
+            if(!is.null(location)) {
+              if (inherits(location,"guiContainer") ||
+                 inherits(location,"guiComponent")) {
+                try(.jcall(window,"V","setLocationRelativeTo",
+                           .jcast(getToolkitWidget(location),"java/awt/Component")))
+              } else if(length(location) == 2) {
+                location = as.integer(location)
+                .jcall(.jcast(window,"java/awt/Component"),"V","setLocation",location[1],location[2])
+              }
+            }
             ## should be JFrame.EXIT_ON_CLOSE
             ## window$setDefaultLookAndFeelDecorated(TRUE)
             window$setDefaultCloseOperation(as.integer(1))

@@ -58,7 +58,7 @@ setClass("gAddargrJava",
 
 addArg = function(argument,iwidget,container = NULL, toolkit=guiToolkit()) {
   
-  group = ggroup(horizontal=TRUE, container=container, ...)
+  group = ggroup(horizontal=TRUE, container=container)
   label = glabel(text=Paste(argument,"= "), container=group)
   add(group,iwidget)
 
