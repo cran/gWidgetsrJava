@@ -654,6 +654,13 @@
 \alias{.removehandler,gWidgetrJava,guiWidgetsToolkitrJava-method}
 \alias{.removehandler,rJavaObject,guiWidgetsToolkitrJava-method} 
 %%
+%% --  addhandler --
+%%
+\alias{addhandler-methods}
+\alias{addhandler,guiWidget-method}
+\alias{addhandler,gWidgetrJava-method}
+\alias{addhandler,rJavaObject-method}
+%%
 %% --  addhandlerchanged --
 %%
 \alias{addhandlerchanged-methods}

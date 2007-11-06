@@ -48,7 +48,8 @@ setMethod(".gframe",
 
             ## make object
             obj = new("gFramerJava",
-              block=gp@block, widget=gp@widget, toolkit=toolkit,ID=getNewID())
+              block=gp@block, widget=gp@widget,
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
 
             ## add to container if desired
             if (!is.null(container)) {

@@ -3,7 +3,7 @@ setMethod(".gwindow",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
                    title="Window", visible=TRUE,
-                   width = NULL, height = NULL, location=NULL,
+                   width = NULL, height = NULL, parent=NULL,
                    handler=NULL, action = NULL,
                    ...
                    ) {
@@ -28,6 +28,7 @@ setMethod(".gwindow",
 
 
             ## set initial location
+            location <- parent
             if(!is.null(location)) {
               if (inherits(location,"guiContainer") ||
                  inherits(location,"guiComponent")) {
@@ -44,7 +45,8 @@ setMethod(".gwindow",
             
             
             
-            obj = new("gWindowrJava",block=window, widget=window, toolkit=toolkit, ID=getNewID())
+            obj = new("gWindowrJava",block=window, widget=window,
+              toolkit=toolkit, ID=getNewID(),  e = new.env())
 
             svalue(obj) <- title
             
@@ -66,8 +68,8 @@ setMethod(".add",
             .jcall(obj@widget,"Ljava/awt/Component;", "add",
                    .jcast(getBlock(value), "java/awt/Component"))
             .jcall(obj@widget,"V", "pack")
-#            .jcall(obj@widget,"V", "invalidate")
-#            .jcall(obj@widget,"V", "validate")
+            .jcall(obj@widget,"V", "invalidate")
+            .jcall(obj@widget,"V", "validate")
           })
 
 

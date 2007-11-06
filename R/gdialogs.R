@@ -9,12 +9,15 @@ setMethod(".gmessage",
                    message,
                    title = "message",
                    icon = c("info","warning","error","question"),
+                   parent = NULL,
                    handler = NULL,
                    action = NULL,
                    ...
                    ) {
 
             icon = match.arg(icon)
+
+            if(!is.null(parent)) gwCat("Implement parent in gmessage\n")
             
             op = .jnew("gWidgetsrJava/gDialog")
             .jcall(op,"V","gMessage",
@@ -32,13 +35,16 @@ setMethod(".gconfirm",
           function(toolkit,
                    message,
                    title = "Confirm",
-                   icon = c("info", "warning", "error", "question"), 
+                   icon = c("info", "warning", "error", "question"),
+                   parent = NULL,
                    handler = NULL,
                    action = NULL,
                    ...
                    ) {
             
             icon = match.arg(icon)
+
+            if(!is.null(parent)) gwCat("Implement parent in gconfirm\n")
 
             op = .jnew("gWidgetsrJava/gDialog")
             ans= .jcall(op,"I","gConfirm",
@@ -64,6 +70,7 @@ setMethod(".ginput",
                    text = "",
                    title = "Input",
                    icon = c("info","warning","error","question"),
+                   parent = NULL,
                    handler = NULL,
                    action = NULL,
                    ...
@@ -71,6 +78,9 @@ setMethod(".ginput",
             
             icon = match.arg(icon)
 
+
+            if(!is.null(parent)) gwCat("Implement parent in ginput\n")
+            
             op = .jnew("gWidgetsrJava/gDialog")
             ans= .jcall(op,"S","gInput",
               .jnew("javax/swing/JFrame",
@@ -96,6 +106,7 @@ setMethod(".gbasicdialog",
           function(toolkit,
                    title = "Dialog",
                    widget,
+                   parent = NULL,
                    handler = NULL,
                    action = NULL,
                    ...
@@ -103,6 +114,8 @@ setMethod(".gbasicdialog",
   
             icon = match.arg(icon)
 
+            if(!is.null(parent )) gwCat("implement parent in gbasicdialog\n")
+            
             g = ggroup()
             add(g,widget)
             

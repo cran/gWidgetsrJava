@@ -120,7 +120,8 @@ setMethod(".gfilebrowse",
 
             ## put entry as widget to pick up gEdit methods
             obj = new("gFilebrowserJava",
-              block=group, widget=entry@widget@widget, toolkit=toolkit,ID=getNewID())
+              block=group, widget=entry@widget@widget,
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
 
             invisible(obj)
           })

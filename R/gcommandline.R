@@ -120,6 +120,7 @@ setMethod(".gcommandline",
               widget = group,
               toolkit=toolkit,
               ID=getNewID(),
+              e = new.env(),
               editArea = editArea,
               outputArea = outputArea,
               useGUI = useGUI

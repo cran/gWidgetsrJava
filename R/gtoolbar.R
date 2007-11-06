@@ -29,7 +29,8 @@ setMethod(".gtoolbar",
             mapListToToolBar(toolbar, toolbarlist, style)
 
             obj = new("gToolbarrJava",block=toolbar, widget=toolbar,
-              toolkit=toolkit, ID=getNewID(),style=style)
+              toolkit=toolkit, ID=getNewID(),  e = new.env(),
+              style=style)
 
             tag(obj,"toolbarlist") <- toolbarlist
             

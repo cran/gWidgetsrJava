@@ -17,7 +17,8 @@ setMethod(".gstatusbar",
             statusbar = glabel(text)
             add(group, statusbar, expand=TRUE)
             
-            obj = new("gStatusbarrJava",block=group, widget=statusbar, toolkit=toolkit, ID=getNewID())
+            obj = new("gStatusbarrJava",block=group, widget=statusbar,
+              toolkit=toolkit, ID=getNewID(),  e = new.env())
             
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)

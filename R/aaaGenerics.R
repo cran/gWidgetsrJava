@@ -53,7 +53,8 @@ getNewID = function() {                 # get new one, incremented
          
 
 setClass("gWidgetrJava",
-         representation(ID="numeric"),
+         representation(ID="numeric",
+                        e = "environment"),
          )
 
 
@@ -336,26 +337,26 @@ setReplaceMethod(".font",
 
 
 
-## create namespace object
-tags = list()
-assignInNamespace("tags",list(),"gWidgetsrJava")
+## ## create namespace object
+## #tags = list()
+## #assignInNamespace("tags",list(),"gWidgetsrJava")
 
-## clear out tags for this ID. Not exported. Is this used?
-Tagsclear = function(obj) {
+## ## clear out tags for this ID. Not exported. Is this used?
+## Tagsclear = function(obj) {
 
-  id = obj@ID
+##   id = obj@ID
   
-  tags = getFromNamespace("tags",ns="gWidgetsrJava")
-  allKeys = names(tags)
+##   tags = getFromNamespace("tags",ns="gWidgetsrJava")
+##   allKeys = names(tags)
 
-  inds = grep(paste("^",id,"::",sep=""),allKeys)
-  if(length(inds) == 0)
-    return(NA)
+##   inds = grep(paste("^",id,"::",sep=""),allKeys)
+##   if(length(inds) == 0)
+##     return(NA)
 
-  ## else
-  tags[[inds]] <- NULL
-  assignInNamespace("tags",tags,ns="gWidgetsrJava")
-}
+##   ## else
+##   tags[[inds]] <- NULL
+##   assignInNamespace("tags",tags,ns="gWidgetsrJava")
+## }
 
 
 setMethod("tag",signature(obj="gWidgetrJava"),
@@ -381,37 +382,44 @@ setMethod(".tag", signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava")
             if(missing(i)) i = NULL
             if(missing(drop)) drop <- TRUE                                    
 
+            
+            if(is.null(i))
+              return(as.list(obj@e))
+            else
+              return(obj@e[[i]])
+            
 
-            id = obj@ID
+            
+##             id = obj@ID
 
-            ## get all values for this id
-            tags = getFromNamespace("tags",ns="gWidgetsrJava")
-            allKeys = names(tags)
+##             ## get all values for this id
+##             tags = getFromNamespace("tags",ns="gWidgetsrJava")
+##             allKeys = names(tags)
 
-            inds = grep(paste("^",id,"::",sep=""),allKeys)
-            if(length(inds) == 0)
-              return(NULL)
+##             inds = grep(paste("^",id,"::",sep=""),allKeys)
+##             if(length(inds) == 0)
+##               return(NULL)
 
-            justTheKeys = sapply(allKeys[inds],function(keyWithID) {
-              sub(paste("^",id,"::",sep=""),"",keyWithID)
-            })
+##             justTheKeys = sapply(allKeys[inds],function(keyWithID) {
+##               sub(paste("^",id,"::",sep=""),"",keyWithID)
+##             })
 
-            tagByKey = list()
-            for(key in justTheKeys) 
-              tagByKey[[key]] = tags[[paste(id,key,sep="::")]]
+##             tagByKey = list()
+##             for(key in justTheKeys) 
+##               tagByKey[[key]] = tags[[paste(id,key,sep="::")]]
                       
             
             
-            if(is.null(i)) return(tagByKey)
+##             if(is.null(i)) return(tagByKey)
 
-            if(drop) {
-              if(length(i) == 1)
-                return(tagByKey[[i]])
-              else
-                return(sapply(i, function(j) tagByKey[j]))
-            } else {
-              return(sapply(i, function(j) tagByKey[j]))
-            }
+##             if(drop) {
+##               if(length(i) == 1)
+##                 return(tagByKey[[i]])
+##               else
+##                 return(sapply(i, function(j) tagByKey[j]))
+##             } else {
+##               return(sapply(i, function(j) tagByKey[j]))
+##             }
           })
 
 ## tag <-
@@ -438,20 +446,23 @@ setReplaceMethod(".tag", signature(toolkit="guiWidgetsToolkitrJava",obj="guiWidg
 setReplaceMethod(".tag", signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit, i, replace=TRUE, ..., value) {
             if(missing(i)) i = NULL
-            
 
-            id = obj@ID
-            key = paste(id,i,sep="::")
+            obj@e[[i]] <- value
+            return(obj)
+
+
+##             id = obj@ID
+##             key = paste(id,i,sep="::")
             
-            ## if we append we need to work a little harder
-            tags = getFromNamespace("tags",ns="gWidgetsrJava")
+##             ## if we append we need to work a little harder
+##             tags = getFromNamespace("tags",ns="gWidgetsrJava")
   
-            if(replace==FALSE) {
-              value = c(tags[[key]],value)
-            }
+##             if(replace==FALSE) {
+##               value = c(tags[[key]],value)
+##             }
 
-            tags[[key]] <- value
-            assignInNamespace("tags", tags,ns="gWidgetsrJava")
+##             tags[[key]] <- value
+##             assignInNamespace("tags", tags,ns="gWidgetsrJava")
 
             return(obj)
 
@@ -754,7 +765,7 @@ setMethod(".update",
 ##################################################
 ## handlers
 ##
-## basic handler for adding with a signal. Not exported.
+## basic handler for adding with a signal.
 setGeneric("addhandler", function(obj, signal, handler, action=NULL, ...)
            standardGeneric("addhandler"))
 setMethod("addhandler",signature(obj="guiWidget"),
@@ -880,6 +891,53 @@ setMethod(".removehandler",
               ## now store the hash
             assignInNamespace("allHandlers",allHandlers,ns="gWidgetsrJava")
           })
+
+
+## blockhandler
+setMethod("blockhandler", signature("gWidgetrJava"),
+          function(obj, ID=NULL, ...) {
+            .blockhandler(obj, obj@toolkit, ID, ...)
+          })
+setMethod("blockhandler", signature("rJavaObject"),
+          function(obj, ID=NULL, ...) {
+            .blockhandler(obj, guiToolkit("rJava"), ID, ...)
+          })
+
+setMethod(".blockhandler",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit, ID=NULL, ...) {
+            .blockhandler(getWidget(obj),toolkit,ID,...)
+          })
+
+setMethod(".blockhandler",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="rJavaObject"),
+          function(obj, toolkit, ID=NULL, ...) {
+            cat("define block handler\n")
+          })
+
+## unblock handler
+setMethod("unblockhandler", signature("gWidgetrJava"),
+          function(obj, ID=NULL, ...) {
+            .unblockhandler(obj, obj@toolkit, ID, ...)
+          })
+setMethod("unblockhandler", signature("rJavaObject"),
+          function(obj, ID=NULL, ...) {
+            .unblockhandler(obj, guiToolkit("rJava"), ID, ...)
+          })
+
+setMethod(".unblockhandler",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit, ID=NULL, ...) {
+            .blockhandler(getWidget(obj),toolkit,ID,...)
+          })
+
+setMethod(".unblockhandler",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="rJavaObject"),
+          function(obj, toolkit, ID=NULL, ...) {
+            cat("define unblock handler\n")
+          })
+
+
 
 
 ## addhandlerchanged
@@ -1048,6 +1106,24 @@ setMethod(".addhandlerrightclick",
 ##                           after = FALSE
 ##                         )
           })
+
+## mouse motion -- like mouseover
+setMethod("addhandlermousemotion",signature(obj="gWidgetrJava"),
+          function(obj, handler=NULL, action=NULL, ...) {
+            .addhandlermousemotion(obj,obj@toolkit,handler, action, ...)
+          })
+setMethod("addhandlermousemotion",signature(obj="rJavaObject"),
+          function(obj, handler=NULL, action=NULL, ...) {
+            .addhandlermousemotion(obj,guiToolkit("rJava"),handler, action, ...)
+          })
+
+setMethod(".addhandlermousemotion",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit,
+                   handler, action=NULL, ...) {
+            warning("No default handler for mouse motion")
+          })
+
 
 ## idle
 setMethod("addhandleridle",signature(obj="gWidgetrJava"),

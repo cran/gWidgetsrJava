@@ -43,7 +43,7 @@ setMethod(".gtext",
 #            .jcall(sp,"Ljava/awt/Component;","add",as.jcomponent(textview))
             
             obj = new("gTextrJava", block=sp, widget=textview, tags=list(),
-              toolkit=toolkit,ID=getNewID())
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
 
 
             ## add initial text
@@ -80,6 +80,7 @@ setMethod(".svalue",
             } else {
               val = buffer$getSelectedText()
             }
+            if(is.null(val)) val <- ""
             return(val)
             })
           

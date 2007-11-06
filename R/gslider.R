@@ -43,7 +43,7 @@ setMethod(".gslider",
 
             
             obj = new("gSliderrJava",block=scale, widget=scale,
-              toolkit=toolkit, ID=getNewID())
+              toolkit=toolkit, ID=getNewID(),  e = new.env())
             
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)

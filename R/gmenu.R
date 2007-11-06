@@ -32,7 +32,7 @@ setMethod(".gmenu",
             
             ## unlike RGtk2 use removeall to make changes
             obj = new("gMenurJava", block=mb, widget=mb,
-              toolkit=toolkit,ID=getNewID())
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
   
             
             tag(obj, "menulist") <- menulist

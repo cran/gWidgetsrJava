@@ -32,7 +32,7 @@ setMethod(".ggraphicsnotebook",
             ## store both gnotebook
             obj = new("gGraphicsNotebookrJava",
               block=group, widget=getWidget(notebook), # gWidgetNotebookrJava
-              toolkit=toolkit, ID=getNewID(),
+              toolkit=toolkit, ID=getNewID(), e = new.env(),
               width=width, height=height)
 
   

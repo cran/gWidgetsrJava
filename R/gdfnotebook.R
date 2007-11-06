@@ -24,7 +24,7 @@ setMethod(".gdfnotebook",
             obj = new("gDfNotebookrJava",
               block=mainGroup,
               widget = getWidget(nb),       # for inheritance of methods
-              toolkit = toolkit,ID=getNewID(),
+              toolkit = toolkit,ID=getNewID(), e = new.env(),
               gnotebook=nb)
 
             ## add drophandler to mainGroup

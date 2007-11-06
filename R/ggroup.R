@@ -35,9 +35,13 @@ setMethod(".ggroup",
               d = .jnew("java/awt/Dimension")
               d$setSize(theArgs$width,theArgs$height)
               .jcall(as.jcomponent(sp),"V","setPreferredSize",d)
-              obj = new("gGrouprJava", block=sp, widget=group, toolkit=toolkit, ID=getNewID(), horizontal=horizontal)
+              obj = new("gGrouprJava", block=sp, widget=group,
+                toolkit=toolkit, ID=getNewID(),  e = new.env(),
+                horizontal=horizontal)
             } else {
-              obj = new("gGrouprJava", block=group, widget=group, toolkit=toolkit, ID=getNewID(), horizontal=horizontal)
+              obj = new("gGrouprJava", block=group, widget=group,
+                toolkit=toolkit, ID=getNewID(),  e = new.env(),
+                horizontal=horizontal)
             }
             
             ## attach to container if there

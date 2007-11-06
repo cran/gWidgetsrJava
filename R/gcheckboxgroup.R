@@ -46,7 +46,8 @@ setMethod(".gcheckboxgroup",
 
             
             ## make combination widget with all the values
-            obj = new("gCheckboxgrouprJava",block=group, widget=group, toolkit=toolkit, coercewith = coerce.with)
+            obj = new("gCheckboxgrouprJava",block=group, widget=group,
+              toolkit=toolkit,  e = new.env(), coercewith = coerce.with)
   
             tag(obj, "items") <- items
             tag(obj, "itemlist") <- lst

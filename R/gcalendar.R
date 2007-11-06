@@ -25,7 +25,7 @@ setMethod(".gcalendar",
             
             obj = new("gCalendarrJava",
               block=datepicker, widget = datepicker, toolkit=toolkit,
-              ID=getNewID(), format=format)
+              ID=getNewID(),  e = new.env(), format=format)
 
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)

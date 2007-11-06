@@ -35,7 +35,7 @@ setMethod(".gnotebook",
             
             ## create gnotebook object
             obj = new("gNotebookrJava", block=notebook, widget=notebook,
-              toolkit=toolkit,ID=getNewID(),
+              toolkit=toolkit,ID=getNewID(),  e = new.env(),
               closebuttons = as.logical(closebuttons),
               dontCloseThese = ifelse(is.null(dontCloseThese),0,dontCloseThese))
 

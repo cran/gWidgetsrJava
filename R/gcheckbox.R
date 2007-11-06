@@ -18,7 +18,7 @@ setMethod(".gcheckbox",
               as.character(text), as.logical(checked))
 
             obj = new("gCheckboxrJava",block=check, widget=check,
-              toolkit=toolkit, ID=getNewID())
+              toolkit=toolkit, ID=getNewID(),  e = new.env())
 
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)

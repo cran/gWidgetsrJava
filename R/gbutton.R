@@ -17,7 +17,7 @@ setMethod(".gbutton",
             text = as.character(text)
             allIcons = names(gWidgetsrJavaIcons)
             if(text %in% allIcons)
-              iconFile = gWidgetsrJavaIcons[[text]]
+              iconFile = gWidgetsrJavaIcons[[text, exact=TRUE]]
             else
               iconFile = NULL
             if(!is.null(iconFile)) {
@@ -36,7 +36,8 @@ setMethod(".gbutton",
             }
 
             obj = new("gButtonrJava",
-              block=button, widget=button, toolkit=toolkit,ID=getNewID())
+              block=button, widget=button,
+              toolkit=toolkit,ID=getNewID(), e = new.env())
 
             ## add to container
             if (!is.null(container)) {
@@ -65,7 +66,7 @@ setReplaceMethod(".svalue",
                  function(obj, toolkit, index=NULL, ..., value) {
                    button = obj@widget
 
-                   iconFile = gWidgetsrJavaIcons[[value]]
+                   iconFile = gWidgetsrJavaIcons[[value, exact=TRUE]]
                    if(!is.null(iconFile)) {
                      ## put icon and text
                      icon = .jnew("javax/swing/ImageIcon",iconFile)

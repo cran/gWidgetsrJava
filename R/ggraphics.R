@@ -30,7 +30,7 @@ setMethod(".ggraphics",
             ## Do I need to mess with devices?
             
             obj = new("gGraphicsrJava",block=gd, widget=gd,
-              toolkit=toolkit,ID=getNewID())
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
             tag(obj,"device") <- dev.cur()
   
             ## raise this device when clicked

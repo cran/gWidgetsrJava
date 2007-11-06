@@ -45,7 +45,8 @@ setMethod(".gdroplist",
             if(editable)
               .jcall(combo,"V","setEditable",TRUE)
 
-            obj = new("gDroplistrJava",block=combo,widget=combo, toolkit=toolkit,ID=getNewID())
+            obj = new("gDroplistrJava",block=combo,widget=combo,
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
             tag(obj,"coerce.with") <- coerce.with
             tag(obj,"editable") <- editable
 

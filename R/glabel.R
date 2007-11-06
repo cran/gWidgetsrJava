@@ -24,7 +24,7 @@ setMethod(".glabel",
 
             
             obj = new("gLabelrJava",block=label, widget=label,
-              toolkit=toolkit,ID=getNewID(),
+              toolkit=toolkit,ID=getNewID(), e = new.env(),
               markup=as.logical(markup))
 
 

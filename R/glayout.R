@@ -30,7 +30,8 @@ setMethod(".glayout",
             .jcall(pane,,"setLayout",.jcast(gbl, "java/awt/LayoutManager"))
             
             obj = new("gLayoutrJava",
-              block=pane, widget=pane, toolkit=toolkit,ID=getNewID(),
+              block=pane, widget=pane,
+              toolkit=toolkit,ID=getNewID(),  e = new.env(),
               homogeneous=homogeneous,
               spacing = spacing
               )

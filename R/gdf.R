@@ -55,8 +55,8 @@ setMethod(".gdf",
             tbl = .jcall(sp,"Ljavax/swing/JTable;","getTable")
             
 
-            obj = new("gDfrJava",block=sp,widget=tbl,toolkit=toolkit,
-              ID=getNewID())
+            obj = new("gDfrJava",block=sp,widget=tbl,
+              toolkit=toolkit, ID=getNewID(),  e = new.env())
 
             ## store the data
             obj[1:d[1],1:d[2]] <- x

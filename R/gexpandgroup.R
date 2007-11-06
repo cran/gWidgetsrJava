@@ -24,7 +24,7 @@ setMethod(".gexpandgroup",
                    .jcast(getWidget(group),"java/awt/Component"))  
 
             obj = new("gExpandgrouprJava",block = cont, widget = group,
-              toolkit = toolkit, ID = getNewID())
+              toolkit = toolkit, ID = getNewID(),  e = new.env())
 
             tag(obj, "expandGroup") <- exg
 

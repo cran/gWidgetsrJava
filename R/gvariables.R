@@ -63,7 +63,7 @@ addArg = function(argument,iwidget,container = NULL, toolkit=guiToolkit()) {
   add(group,iwidget)
 
   obj = new("gAddargrJava",block=group, widget=iwidget,
-    toolkit=toolkit,ID=getNewID(),
+    toolkit=toolkit,ID=getNewID(), e = new.env(),
     argument=argument)
   return(obj)
 }
@@ -115,7 +115,7 @@ gunivariate = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()) {
   xarg = addArg(argument=xlabel, xentry, container=frame)
 
   obj = new("gUnivariaterJava",block=frame, widget=frame,
-    toolkit=toolkit, ID=getNewID(),
+    toolkit=toolkit, ID=getNewID(),  e = new.env(),
     widgets=list(xarg))
   return(obj)
 }
@@ -141,7 +141,9 @@ gunivariatetable = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()
   xarg = addArg(argument=xlabel, xentry, container=frame)
   glabel(" Tabulate data?",container=frame)
   doTable=gdroplist(c(TRUE,FALSE),container=frame)
-  obj = new("gUnivariateTablerJava",block=frame, widget=frame, toolkit=toolkit, widgets=list(x=xarg, doTable=doTable))
+  obj = new("gUnivariateTablerJava",block=frame, widget=frame,
+    toolkit=toolkit,  e = new.env(),
+    widgets=list(x=xarg, doTable=doTable))
   return(obj)
 }
 
@@ -172,7 +174,9 @@ gfileurl = function(xlabel="x",container=NULL, ..., toolkit=guiToolkit()) {
   xarg = addArg(argument=xlabel, xentry, container=frame)
   glabel("A url?",container=frame)
   doURL=gdroplist(c(FALSE,TRUE),container=frame)
-  obj = new("gFileURLrJava",block=frame, widget=frame, toolkit=toolkit, widgets=list(x=xarg, doURL=doURL))
+  obj = new("gFileURLrJava",block=frame, widget=frame, toolkit=toolkit,
+     e = new.env(),
+    widgets=list(x=xarg, doURL=doURL))
   return(obj)
 }
 
@@ -207,7 +211,8 @@ gbivariate = function(xlabel = "x", ylabel = "y", container=NULL, ...,
   yarg = addArg(argument=ylabel, yentry, container=frame)
   
   obj = new("gBivariaterJava",block=frame, widget=frame,
-    toolkit=toolkit, ID=getNewID(), widgets=list(xarg,yarg))
+    toolkit=toolkit, ID=getNewID(),  e = new.env(),
+    widgets=list(xarg,yarg))
   return(obj)
 }
 
@@ -351,7 +356,7 @@ gmodel = function(lattice=FALSE, container=NULL,...,toolkit=guiToolkit()) {
   add(line2,table)
 
   obj = new("gModelrJava",block=frame,widget=frame,
-    toolkit=toolkit,ID=getNewID(),
+    toolkit=toolkit,ID=getNewID(), e = new.env(),
     widgets =
     list(response=responseEntry,
          predictor = predictorEntry,
@@ -413,7 +418,7 @@ glmer = function(container=NULL, ..., toolkit=guiToolkit()) {
   table[2,2] = dataEntry
   visible(table) <- TRUE
   
-  obj = new("gLmerrJava",block=frame,widget=frame,toolkit=toolkit,ID=getNewID(),
+  obj = new("gLmerrJava",block=frame,widget=frame,toolkit=toolkit,ID=getNewID(), e = new.env(),
     dataEntry = dataEntry, formulaEntry = formulaEntry)
 
   return(obj)
@@ -445,7 +450,7 @@ setClass("gEditListrJava",
 
 geditlist = function(...,toolkit=guiToolkit()) {
   edit = gedit(...,toolkit=toolkit)
-  obj = new("gEditListrJava", block=edit@widget@block, widget=edit@widget@widget, toolkit=toolkit,ID=getNewID())
+  obj = new("gEditListrJava", block=edit@widget@block, widget=edit@widget@widget, toolkit=toolkit,ID=getNewID(),  e = new.env())
   invisible(obj)
 }
 
@@ -455,7 +460,7 @@ setClass("gEditNamedListrJava",
 
 geditnamedlist = function(..., toolkit=guiToolkit()) {
   edit = gedit(...,toolkit=toolkit)
-  obj = new("gEditNamedListrJava", block=edit@widget@block, widget=edit@widget@widget, toolkit=toolkit,ID=getNewID())
+  obj = new("gEditNamedListrJava", block=edit@widget@block, widget=edit@widget@widget, toolkit=toolkit,ID=getNewID(),  e = new.env())
   invisible(obj)
 }
 

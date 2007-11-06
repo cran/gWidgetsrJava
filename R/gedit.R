@@ -39,7 +39,9 @@ setMethod(".gedit",
            entry$setMinimumSize(entry$getPreferredSize())
            entry$setMaximumSize(entry$getPreferredSize())
            
-            obj = new("gEditrJava",block=entry, widget=entry, toolkit=toolkit,ID=getNewID(),coercewith=coerce.with)
+            obj = new("gEditrJava",block=entry, widget=entry,
+              toolkit=toolkit,ID=getNewID(),  e = new.env(),
+              coercewith=coerce.with)
 
 
 

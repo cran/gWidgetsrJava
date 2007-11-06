@@ -24,7 +24,8 @@ setMethod(".gseparator",
                 .jfield(j,name="VERTICAL"))
             }
 
-            obj = new("gSeparatorrJava", block=separator, widget=separator, toolkit=toolkit, ID=getNewID())
+            obj = new("gSeparatorrJava", block=separator, widget=separator,
+              toolkit=toolkit, ID=getNewID(), e = new.env())
 
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)

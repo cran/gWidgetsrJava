@@ -38,7 +38,8 @@ setMethod(".gradio",
               coerce.with = get(coerce.with)
             
             obj = new("gRadiorJava",block=r, widget=r,
-              toolkit=toolkit, ID=getNewID(), coercewith = coerce.with)
+              toolkit=toolkit, ID=getNewID(),  e = new.env(),
+              coercewith = coerce.with)
 
             
             ## do we add to the container?

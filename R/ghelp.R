@@ -18,7 +18,7 @@ setMethod(".ghelp",
             add(group, notebook, expand=TRUE)
 
             obj = new("gHelprJava", block=group, widget=notebook,
-              toolkit=toolkit,ID=getNewID())
+              toolkit=toolkit,ID=getNewID(),  e = new.env())
             ##  obj = list(ref=group, gnotebook = notebook, notebook = notebook$notebook)
             ## class(obj) = c("gHelp",class(notebook))
   

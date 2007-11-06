@@ -82,7 +82,7 @@ setMethod(".gtable",
             
 
             obj = new("gTablerJava",block=sp,widget=tbl,
-              toolkit=toolkit,ID=getNewID(),
+              toolkit=toolkit,ID=getNewID(), e = new.env(),
               chosencol = as.numeric(chosencol))
 
             obj[,] <- x

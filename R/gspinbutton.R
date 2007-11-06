@@ -20,7 +20,7 @@ setMethod(".gspinbutton",
                    .jcast(spinnerModel,"javax/swing/SpinnerModel"))
 
             obj = new("gSpinbuttonrJava", block=spinner, widget=spinner,
-              toolkit=toolkit, ID=getNewID())
+              toolkit=toolkit, ID=getNewID(),  e = new.env())
 
             svalue(obj) <- value                  # wasn't working as desired
   

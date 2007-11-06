@@ -24,7 +24,7 @@ setMethod(".gimage",
 
             iconFile = NULL
             if(dirname == "stock") {
-              iconFile = gWidgetsrJavaIcons[[filename]]
+              iconFile = gWidgetsrJavaIcons[[filename, exact=TRUE]]
             } else if(dirname != "") {
               iconFile = paste(dirname,filename,sep=.Platform$file.sep)
             } else {
@@ -50,7 +50,7 @@ setMethod(".gimage",
 
             
             obj = new("gImagerJava", block=button, widget=button,
-              toolkit=toolkit,ID=getNewID()
+              toolkit=toolkit,ID=getNewID(),  e = new.env()
               )
 
             tag(obj,"filename") <- iconFile
@@ -93,8 +93,8 @@ setReplaceMethod(".svalue",
                    ## value is a full filename or icon name
                    if(!file.exists(value)) {
                      ## if not there, look for stock
-                     if(!is.null(gWidgetsrJavaIcons[[value]])) {
-                       value = gWidgetsrJavaIcons[[value]]
+                     if(!is.null(gWidgetsrJavaIcons[[value, exact=TRUE]])) {
+                       value = gWidgetsrJavaIcons[[value, exact=TRUE]]
                      } else {
                        cat("File",value,"does not exist\n")
                        return(obj)

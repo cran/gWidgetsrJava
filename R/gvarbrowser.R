@@ -156,7 +156,7 @@ setMethod(".gvarbrowser",
             n = gnotebook(tab.pos=2)
 
             obj = new("gVarbrowserrJava",block=g, widget=n,
-              toolkit=toolkit,ID=getNewID())
+              toolkit=toolkit,ID=getNewID(), e = new.env())
 
 
             add(g,n, expand=TRUE)
