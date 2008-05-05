@@ -1,6 +1,5 @@
 Package: gWidgetsrJava
-Version: 0.0-10
-Date: 2007-11-06
+Version: 0.0-11
 Title: Toolkit implementation of gWidgets for rJava
 Author: John Verzani
 Maintainer: John Verzani <gwidgetsrjava@gmail.com>
@@ -10,4 +9,4 @@ Description: Port of gWidgets API to the rJava interface between R and Java.
 License: GPL (>= 2)
 URL: http://www.math.csi.cuny.edu/pmg
 LazyLoad: yes
-Packaged: Wed Apr 23 22:11:44 2008; verzani
+Packaged: Mon May  5 21:34:51 2008; verzani

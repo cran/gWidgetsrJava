@@ -26,6 +26,7 @@
 \alias{[,gVarbrowserrJava-method}
 \alias{.delete,gNotebookrJava,guiWidgetsToolkitrJava,ANY-method}
 \alias{.delete,gToolbarrJava,guiWidgetsToolkitrJava,ANY-method}
+
 \alias{.svalue<-,gNotebookrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gRadiorJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gSliderrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
@@ -37,6 +38,7 @@
 \alias{.svalue<-,gBivariaterJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gModelrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gWindowrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
+\alias{.svalue<-,gPanedgrouprJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 %%
 %%
 %% --  .glabel --
@@ -266,6 +268,7 @@
 \alias{.svalue,gLabelrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gMenurJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gNotebookrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
+\alias{.svalue,gPanedgrouprJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gRadiorJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gSliderrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gSpinbuttonrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
@@ -392,6 +395,7 @@
 \alias{.add,gWindowrJava,guiWidgetsToolkitrJava,rJavaObject-method}
 \alias{.add,gWindowrJava,guiWidgetsToolkitrJava,gMenurJava-method}
 \alias{.add,gWindowrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
+\alias{.add,gPanedgrouprJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gWidgetrJava,guiWidgetsToolkitrJava,try-error-method} 
 %%
 %% --  addSpace --
@@ -653,6 +657,7 @@
 \alias{.removehandler-methods}
 \alias{.removehandler,gWidgetrJava,guiWidgetsToolkitrJava-method}
 \alias{.removehandler,rJavaObject,guiWidgetsToolkitrJava-method} 
+
 %%
 %% --  addhandler --
 %%
@@ -660,6 +665,31 @@
 \alias{addhandler,guiWidget-method}
 \alias{addhandler,gWidgetrJava-method}
 \alias{addhandler,rJavaObject-method}
+
+%% --  blockhandler --
+%%
+\alias{blockhandler-methods}
+\alias{blockhandler,gWidgetrJava-method}
+\alias{blockhandler,rJavaObject-method}
+%%
+%% --  .blockhandler --
+%%
+\alias{.blockhandler-methods}
+\alias{.blockhandler,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.blockhandler,rJavaObject,guiWidgetsToolkitrJava-method} 
+
+%% --  unblockhandler --
+%%
+\alias{unblockhandler-methods}
+\alias{unblockhandler,gWidgetrJava-method}
+\alias{unblockhandler,rJavaObject-method}
+%%
+%% --  .unblockhandler --
+%%
+\alias{.unblockhandler-methods}
+\alias{.unblockhandler,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.unblockhandler,rJavaObject,guiWidgetsToolkitrJava-method} 
+
 %%
 %% --  addhandlerchanged --
 %%
@@ -792,6 +822,7 @@
 %%
 \alias{.addhandlerunrealize-methods}
 \alias{.addhandlerunrealize,gWidgetrJava,guiWidgetsToolkitrJava-method} 
+
 %%
 %% --  addhandleridle --
 %%
@@ -832,7 +863,19 @@
 \alias{.add3rdmousepopupmenu,gWidgetrJava,guiWidgetsToolkitrJava-method}
 \alias{.add3rdmousepopupmenu,rJavaObject,guiWidgetsToolkitrJava-method} 
 \alias{.add3rdmousepopupmenu,gLabelrJava,guiWidgetsToolkitrJava-method}
- 
+
+%%
+%% --  addhandlermousemotion --
+%%
+\alias{addhandlermousemotion-methods}
+\alias{addhandlermousemotion,gWidgetrJava-method}
+\alias{addhandlermousemotion,rJavaObject-method} 
+%%
+%% --  .addhandlermousemotion --
+%%
+\alias{.addhandlermousemotion-methods}
+\alias{.addhandlermousemotion,gWidgetrJava,guiWidgetsToolkitrJava-method} 
+
 %%
 %% --  adddropsource --
 %%
@@ -1005,7 +1048,7 @@
 \alias{.length,gRadiorJava,guiWidgetsToolkitrJava}
 \alias{.length,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
 \alias{.siz,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
-\alias{.svalu,gTableWithFilterrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
+\alias{.svalue,gTableWithFilterrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue,gTableWithFilterrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.dim,gTableWithFilterrJava,guiWidgetsToolkitrJava-method}
 \alias{.ggenericwidget,ANY-method}
