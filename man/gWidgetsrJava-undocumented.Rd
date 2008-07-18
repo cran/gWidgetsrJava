@@ -263,6 +263,7 @@
 \alias{.svalue,GtkTreeView,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gGridrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gGenericWidgetrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
+\alias{.svalue,gGenericWidgetrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gHelprJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gImagerJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gLabelrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
