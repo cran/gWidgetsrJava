@@ -24,7 +24,7 @@ setMethod(".gwindow",
             }
 
             d = .jnew("java/awt/Dimension", as.integer(width), as.integer(height))
-            .jcall(.jcast(window,"javax/swing/JComponent"),"V","setPreferredSize",d)
+            .jcall(.jcast(window,"javax/swing/JComponent"),"V","setMinimumSize",d)
 
 
             ## set initial location
@@ -47,7 +47,8 @@ setMethod(".gwindow",
             
             obj = new("gWindowrJava",block=window, widget=window,
               toolkit=toolkit, ID=getNewID(),  e = new.env())
-
+            tag(obj,"parentContainer") <- obj
+            
             svalue(obj) <- title
             
             if (!is.null(handler)) {
@@ -65,11 +66,14 @@ setMethod(".gwindow",
 setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWindowrJava", value="gWidgetrJava"),
           function(obj, toolkit, value, ...) {
+            tag(value, "parentContainer") <- obj
+            
             .jcall(obj@widget,"Ljava/awt/Component;", "add",
                    .jcast(getBlock(value), "java/awt/Component"))
-            .jcall(obj@widget,"V", "pack")
             .jcall(obj@widget,"V", "invalidate")
             .jcall(obj@widget,"V", "validate")
+
+            .jcall(obj@widget,"V", "pack")
           })
 
 
@@ -98,7 +102,7 @@ setMethod(".visible<-",
             value = as.logical(value)
 
             .jcall(obj@widget,,"setVisible", value)
-
+            .jcall(obj@widget,"V", "pack")
             return(obj)
           })
 
@@ -124,3 +128,17 @@ setMethod(".addhandlerdestroy",
           function(obj, toolkit, handler, action=NULL, ...) {
             .addHandler(obj, toolkit, signal="destroy", handler, action, ...)
           })
+
+
+## helpers
+
+## return top level container or NULL
+getTopLevel <- function(obj) {
+  ## return NULL or gWidnow object
+  parent <- tag(obj,"parentContainer")
+  if(is.null(parent) || is(parent,"gWindowrJava"))
+    return(parent)
+  ## else recurse
+  else
+    getTopLevel(parent)
+}

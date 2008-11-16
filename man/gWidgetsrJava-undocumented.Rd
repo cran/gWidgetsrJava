@@ -38,7 +38,8 @@
 \alias{.svalue<-,gBivariaterJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gModelrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gWindowrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
-\alias{.svalue<-,gPanedgrouprJava,guiWidgetsToolkitrJava,ANY,ANY-method}
+\alias{.svalue<-,gActionrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
+
 %%
 %%
 %% --  .glabel --
@@ -50,6 +51,10 @@
 %%
 \alias{.gbutton-methods}
 \alias{.gbutton,guiWidgetsToolkitrJava-method} 
+\alias{.gbutton,guiWidgetsToolkitrJava,ANY,ANY,ANY,ANY-method} 
+\alias{.gbutton,guiWidgetsToolkitrJava,ANY,ANY,ANY,guiWidget-method} 
+\alias{.gbutton,guiWidgetsToolkitrJava,ANY,ANY,ANY,guiComponent-method} 
+\alias{.gbutton,guiWidgetsToolkitrJava,ANY,ANY,ANY,gActionrJava-method} 
 %%
 %% --  .gcheckbox --
 %%
@@ -90,6 +95,11 @@
 %%
 \alias{.gtext-methods}
 \alias{.gtext,guiWidgetsToolkitrJava-method} 
+%%
+%% --  .gaction --
+%%
+\alias{.gaction-methods}
+\alias{.gaction,guiWidgetsToolkitrJava-method} 
 %%
 %% --  .gmenu --
 %%
@@ -170,6 +180,11 @@
 %%
 \alias{.ghelp-methods}
 \alias{.ghelp,guiWidgetsToolkitrJava-method} 
+%%
+%% --  .ghtml --
+%%
+\alias{.ghtml-methods}
+\alias{.ghtml,guiWidgetsToolkitrJava-method} 
 %%
 %% --  .ghelpbrowser --
 %%
@@ -252,6 +267,7 @@
 %%
 \alias{.svalue-methods}
 \alias{.svalue,character,ANY,ANY,guiWidgetsToolkitrJava-method}
+\alias{.svalue,gActionrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gButtonrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gCheckboxrJava,ANY,ANY,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gCheckboxgrouprJava,ANY,ANY,guiWidgetsToolkitrJava-method}
@@ -302,6 +318,7 @@
 \alias{.svalue,gFileURLrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gGridrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gHelprJava,guiWidgetsToolkitrJava-method}
+\alias{.svalue,gHtmlrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gImagerJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gLabelrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue,gLmerrJava,guiWidgetsToolkitrJava-method}
@@ -350,6 +367,7 @@
 \alias{.svalue<-,gMenurJava,guiWidgetsToolkitrJava,ANY,list-method}
 \alias{.svalue<-,gMenurJava,guiWidgetsToolkitrJava,ANY,gMenurJava-method}
 \alias{.svalue<-,gMenurJava,guiWidgetsToolkitrJava,ANY,guiWidget-method}
+\alias{.svalue<-,gPanedgrouprJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 \alias{.svalue<-,gNotebookrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue<-,gRadiorJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue<-,gSliderrJava,guiWidgetsToolkitrJava-method}
@@ -362,6 +380,7 @@
 \alias{.svalue<-,gModelrJava,guiWidgetsToolkitrJava-method}
 \alias{.svalue<-,gWindowrJava,guiWidgetsToolkitrJava-method} 
 \alias{.svalue<-,gFramerJava,guiWidgetsToolkitrJava,ANY,ANY-method}
+\alias{.svalue<-,gHtmlrJava,guiWidgetsToolkitrJava,ANY,ANY-method}
 %%
 %% --  .leftBracket --
 %%
@@ -430,6 +449,8 @@
 \alias{.add,gToolbarrJava,guiWidgetsToolkitrJava,list-method}
 \alias{.add,gWindowrJava,guiWidgetsToolkitrJava,rJavaObject-method}
 \alias{.add,gWindowrJava,guiWidgetsToolkitrJava,gMenurJava-method}
+\alias{.add,gWindowrJava,guiWidgetsToolkitrJava,gToolbarrJava-method}
+\alias{.add,gWindowrJava,guiWidgetsToolkitrJava,gStatusbarrJava-method}
 \alias{.add,gWindowrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gPanedgrouprJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gWidgetrJava,guiWidgetsToolkitrJava,try-error-method} 
@@ -549,6 +570,7 @@
 \alias{.enabled<--methods}
 \alias{.enabled<-,gWidgetrJava,guiWidgetsToolkitrJava-method}
 \alias{.enabled<-,rJavaObject,guiWidgetsToolkitrJava-method} 
+\alias{.enabled<-,gActionrJava,guiWidgetsToolkitrJava-method} 
 %%
 %% --  size --
 %%
@@ -596,8 +618,45 @@
 %%
 \alias{.focus<--methods}
 \alias{.focus<-,gWidgetrJava,guiWidgetsToolkitrJava-method}
-\alias{.focus<-,GtkWindow,guiWidgetsToolkitrJava-method}
 \alias{.focus<-,rJavaObject,guiWidgetsToolkitrJava-method} 
+%%
+%% --  tooltip<- --
+%%
+\alias{tooltip<--methods}
+\alias{tooltip<-,guiWidget-method}
+\alias{tooltip<-,gWidgetrJava-method} 
+%%
+%% --  .tooltip<- --
+%%
+\alias{.tooltip<--methods}
+\alias{.tooltip<-,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.tooltip<-,rJavaObject,guiWidgetsToolkitrJava-method} 
+
+%%
+%% --  defaultWidget --
+%%
+\alias{defaultWidget-methods}
+\alias{defaultWidget,guiWidget-method}
+\alias{defaultWidget,gWidgetrJava-method} 
+%%
+%% --  .defaultWidget --
+%%
+\alias{.defaultWidget-methods}
+\alias{.defaultWidget,gWidgetrJava,guiWidgetsToolkitrJava-method}
+
+%%
+%% --  defaultWidget<- --
+%%
+\alias{defaultWidget<--methods}
+\alias{defaultWidget<-,guiWidget-method}
+\alias{defaultWidget<-,gWidgetrJava-method} 
+%%
+%% --  .defaultWidget<- --
+%%
+\alias{.defaultWidget<--methods}
+\alias{.defaultWidget<-,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.defaultWidget<-,rJavaObject,guiWidgetsToolkitrJava-method} 
+
 %%
 %% --  font --
 %%
@@ -913,6 +972,18 @@
 \alias{.addhandlermousemotion,gWidgetrJava,guiWidgetsToolkitrJava-method} 
 
 %%
+%% --  addhandlerblur --
+%%
+\alias{addhandlerblur-methods}
+\alias{addhandlerblur,gWidgetrJava-method}
+\alias{addhandlerblur,rJavaObject-method} 
+%%
+%% --  .addhandlerblur --
+%%
+\alias{.addhandlerblur-methods}
+\alias{.addhandlerblur,gWidgetrJava,guiWidgetsToolkitrJava-method} 
+
+%%
 %% --  adddropsource --
 %%
 \alias{adddropsource-methods}
@@ -1032,6 +1103,7 @@
 %%
 \alias{.names-methods}
 \alias{.names,gGridrJava,guiWidgetsToolkitrJava-method}
+\alias{.names,gFramerJava,guiWidgetsToolkitrJava-method}
 \alias{.names,gNotebookrJava,guiWidgetsToolkitrJava-method} 
 %%
 %% --  names<- --
@@ -1045,11 +1117,13 @@
 %%
 \alias{.names<--methods}
 \alias{.names<-,gGridrJava,guiWidgetsToolkitrJava-method}
+\alias{.names<-,gFramerJava,guiWidgetsToolkitrJava-method} 
 \alias{.names<-,gNotebookrJava,guiWidgetsToolkitrJava-method} 
 %%
 %%
 %% -- .getToolkitWidget --
 \alias{.getToolkitWidget,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.getToolkitWidget,gActionrJava,guiWidgetsToolkitrJava-method}
 %%
 %% -- [<-
 \alias{[<-,gWidgetrJava-method}

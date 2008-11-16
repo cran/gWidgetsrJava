@@ -25,10 +25,10 @@ public class gExpandGroup implements ActionListener {
 	expandButton = new JButton();
 	expandButton.setBorderPainted(false);
 	expandButton.setContentAreaFilled(false);
-	//	expandButton.setIcon(new ImageIcon(iconDir+"symbol_dntriangle.jpg"));
+	// expandButton.setIcon(new ImageIcon(iconDir+"symbol_dntriangle.gif"));
 	expandButton.setText("(+)");
-
 	expandState = false;
+
 	theLabel = new JLabel(text);
 	theLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 	theBox = new JPanel();

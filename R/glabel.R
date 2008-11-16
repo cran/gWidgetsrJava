@@ -107,7 +107,7 @@ setMethod(".addhandlerclicked",
                         type="addActionListener",
                         event = "ActionEvent",
                         class = "java/awt/event/ActionListener",
-                        cast = "javax/swing/AbstractButton")
+                        cast = "javax/swing/AbstractButton",...)
 
           })
 setMethod(".addhandlerchanged",

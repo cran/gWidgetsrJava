@@ -24,15 +24,6 @@ setMethod(".gpanedgroup",
             rightgroup = ggroup() 
 
             
-            if(!is.missing(widget1)) {
-              add(leftgroup, widget1, expand=TRUE)
-              tag(obj,"ctr") <- 1
-            }
-
-            if(!is.missing(widget2)) {
-              add(rightgroup, widget2, expand=TRUE)
-              tag(obj,"ctr") <- 2
-            }
             
             .jcall(sp,,"setTopComponent", .jcast(leftgroup@widget@block,"java/awt/Component"))
             .jcall(sp,,"setRightComponent", .jcast(rightgroup@widget@block,"java/awt/Component"))
@@ -49,6 +40,21 @@ setMethod(".gpanedgroup",
             obj = new("gPanedgrouprJava", block=sp, widget=sp,
               toolkit=toolkit,ID=getNewID(),  e = new.env())
 
+            tag(obj,"leftgroup") <- leftgroup
+            tag(obj,"rightgroup") <- rightgroup
+
+            ## add if there
+            if(!missing(widget1) && !is.null(widget1)) {
+              add(leftgroup, widget1, expand=TRUE)
+              tag(obj,"ctr") <- 1
+            }
+
+            if(!missing(widget2) && !is.null(widget2)) {
+              add(rightgroup, widget2, expand=TRUE)
+              tag(obj,"ctr") <- 2
+            }
+
+            
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow(visible=TRUE)
@@ -67,21 +73,22 @@ setMethod(".gpanedgroup",
 setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gPanedgrouprJava", value="gWidgetrJava"),
           function(obj, toolkit, value, ...) {
+            tag(value, "parentContainer") <- obj
+            
             ctr = tag(obj,"ctr")
             if(is.null(ctr))
               ctr = 0
 
             if(ctr == 0) {
-              add(tag(obj,"leftgroup"), value, expand=TRUE)
+              .add(tag(obj,"leftgroup"), toolkit,   value, ...)
               ctr = 1
             } else if(ctr ==1) {
-              add(tag(obj,"rightgroup"), value, expand=TRUE)
+              .add(tag(obj,"rightgroup"), toolkit,  value, ...)
               ctr = 2
             } else {
-              cat("Can only add two widgets to a gpanedgroup\n")
+              gwCat("Can only add two widgets to a gpanedgroup\n")
             }
             tag(obj,"ctr") <- ctr
-            
           })
 
 ## svalue show get/set sash position
@@ -89,7 +96,8 @@ setMethod(".add",
 setMethod(".svalue",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gPanedgrouprJava"),
           function(obj, toolkit, index=NULL, drop=NULL, ...) {
-            cat("Implement me in rJava\n")
+            sp <- getWidget(obj)
+            .jcall(sp,"I","getDividerLocation")
           })
 
 ## svalue sets position
@@ -97,7 +105,8 @@ setReplaceMethod(".svalue",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gPanedgrouprJava"),
                  function(obj, toolkit, index=NULL, ..., value) {
                    if(0 <= value && value <= 1) {
-                     cat("Implement me in rJava\n")
+                     sp <- getWidget(obj)
+                     .jcall(sp,"V","setDividerLocation", as.numeric(value))
                    }
                    return(obj)
                  })

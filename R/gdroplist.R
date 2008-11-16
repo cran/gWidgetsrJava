@@ -69,6 +69,11 @@ setMethod(".gdroplist",
  ##               }
  ##             })
             ## cat("gdroplist: Add drop handler\n" )
+
+            ## width?
+            if(!is.null(theArgs$width)) 
+              size(obj) <- c(theArgs$width, -1)
+
             
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
@@ -103,6 +108,7 @@ setMethod(".svalue",
             
             ## selected is the index. It is 0 based
             if(!is.null(editable) && editable == TRUE) {
+              ## no check on index -- not applicable
               return(val)
             } else {
               if(!is.null(index) && index==TRUE) {
@@ -126,25 +132,27 @@ setReplaceMethod(".svalue",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gDroplistrJava"),
                  function(obj, toolkit, index=NULL, ..., value) {
                    theArgs = list(...)
-
+                   
                    n = length(obj)
 
-                   cat("DEBUG: index");print(index)
-                   if(is.null(index)) index = FALSE
-                   index = as.logical(index)
-                   cat("DEBUG: index");print(index)
+                   if(is.null(index))
+                     index <- FALSE
+                   index <- as.logical(index)
+
+
+
                    ##  if editable do differently
                    ## editable not implented
                    editable = tag(obj,"editable")
 
                    if(!is.null(editable) && editable) {
                      if(index == TRUE)  {
-                       .jcall(obj@widget,"V","setSelectedItem",
-                              asjobject(value))
-                     } else {
                        ## set the index
                        .jcall(obj@widget,"V","setSelectedIndex",
                               as.integer(min(n,value-1)))
+                     } else {
+                       .jcall(obj@widget,"V","setSelectedItem",
+                              asjobject(value))
                      }
                    } else {
                      ## not editable
@@ -157,7 +165,8 @@ setReplaceMethod(".svalue",
                        items = obj[]
                        if(any(value == items)) {
                          ind = min(which(value==items))
-                         svalue(obj) <- ind #recurse
+                         .jcall(obj@widget,"V","setSelectedIndex",
+                                as.integer(min(n,ind-1)))
                        } else {
                          ## add to end
                          item = .jnew("java/lang/String",as.character(value))
@@ -255,7 +264,7 @@ setMethod(".addhandlerchanged",
             ID = addJHandler(obj,handler, action,
               type="addActionListener",
               event = "ActionEvent",
-              class = "java/awt/event/ActionListener")
+              class = "java/awt/event/ActionListener",...)
             return(ID)
           })
 

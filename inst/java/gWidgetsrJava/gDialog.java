@@ -17,7 +17,7 @@ public class gDialog {
     }
 
     //methods
-    public  void gMessage(JFrame frame, String msg, String title, String icon) {
+    public  void gMessage(Component frame, String msg, String title, String icon) {
 
 	int iconType;
 	int buttonType;
@@ -50,7 +50,7 @@ public class gDialog {
 
 
     // gconfirm 1 for yes, 0 for no
-    public  int gConfirm(JFrame frame, String msg, String title, String icon) {
+    public  int gConfirm(Component frame, String msg, String title, String icon) {
 
 	int iconType;
 
@@ -78,7 +78,7 @@ public class gDialog {
     }
     
     // ginput return string from input
-    public  String gInput(JFrame frame, String msg, String txt, String title, String icon) {
+    public  String gInput(Component frame, String msg, String txt, String title, String icon) {
 
 	int iconType;
 
@@ -98,7 +98,7 @@ public class gDialog {
     }
     
     //gbasicdialog return 1 for yes, 0 for no
-    public int  gBasicDialog(JFrame frame, Box widget, String title) {
+    public int  gBasicDialog(Component frame, Box widget, String title) {
 	
 	int i = op.showConfirmDialog(frame,
 				     widget,

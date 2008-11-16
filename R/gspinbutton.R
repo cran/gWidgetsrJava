@@ -59,7 +59,7 @@ setMethod(".addhandlerchanged",
             ID = addJHandler(obj,handler, action,
               type="addChangeListener",
               event = "ChangeEvent",
-              class = "javax/swing/event/ChangeListener")
+              class = "javax/swing/event/ChangeListener",...)
             return(ID)
           })
 

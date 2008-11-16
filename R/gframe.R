@@ -50,7 +50,8 @@ setMethod(".gframe",
             obj = new("gFramerJava",
               block=gp@block, widget=gp@widget,
               toolkit=toolkit,ID=getNewID(),  e = new.env())
-
+            tag(obj,"titledBorder") <- titledBorder
+            
             ## add to container if desired
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
@@ -62,6 +63,7 @@ setMethod(".gframe",
 
 ### methods -- inherited from ggroup
 
+## set spacing
 setReplaceMethod(".svalue",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gFramerJava"),
           function(obj, toolkit, index=NULL, drop=NULL, ..., value) {
@@ -72,3 +74,27 @@ setReplaceMethod(".svalue",
 
             return(obj)
           })
+
+## set label
+setMethod(".names",signature(toolkit="guiWidgetsToolkitrJava",
+                             x="gFramerJava"),
+          function(x, toolkit) {
+            tb <- tag(x,"titledBorder")
+            .jcall(tb,"S","getTitle")
+          })
+
+
+setReplaceMethod(".names",
+                 signature(toolkit="guiWidgetsToolkitrJava",x = "gFramerJava"),
+                 function(x,toolkit,value) {
+                   tb <- tag(x,"titledBorder")
+                   .jcall(tb,"V","setTitle",
+                          .jnew("java/lang/String",as.character(value))
+                          )
+                   return(x)
+                 })
+
+## use methods
+## setBorderPosition
+## setTitleFont
+## setTitleColor

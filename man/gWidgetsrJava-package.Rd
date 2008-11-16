@@ -25,6 +25,11 @@ libraries from within R.
 
 \bold{Containers:}
 
+To speed up the display of complicated GUIs, the \code{visible=FALSE}
+argument to the \code{gwindow} constructor can be used to suppress the
+showing of the window and its child components. The method
+\code{visible} can then be used to show the GUI.
+
 \code{gframe()} no markup in title
 \cr
 
@@ -67,13 +72,12 @@ improved. The console in JGR is much better.
 \code{gdfnotebook()} needs to be changed to run. Not implemented
 \cr
 
-\code{gedit()}, unlike the \pkg{gWidgetsRGtk2} widget, has no type-ahead support via drop down
-boxes.
-\cr
+\code{gedit()}, unlike the \pkg{gWidgetsRGtk2} widget, has no
+type-ahead support via drop down boxes.  The method \code{addHandlerKeystroke} does not have the key returned through the \code{h\$key} component.\cr
 
-\code{ggraphics()} uses the one from \pkg{JGR} (via \pkg{JavaGD}). This
-means no graphics notebook and no embedding of graphics devices.
-\cr
+%\code{ggraphics()} uses the one from \pkg{JGR} (via \pkg{JavaGD}). This
+%means no graphics notebook and no embedding of graphics devices.
+%\cr
 
 \code{ghelpbrowser()} just uses the one from \pkg{JGR},  its methods are not implemented.
 \cr
@@ -90,6 +94,8 @@ updated file won't be loaded.
 \code{gmenu()} adds only to the top window, not any container. This is a Java
 limitation. Use a popupmenu instead. 
 \cr
+
+\code{gstatusbar()} is just a \code{glabel} instance in disguise. 
 
 \code{gradio()} has an extra argument \code{coerce.with=}, as otherwise it would treat
 everything as a character vector. It tries to guess when instantiated,

@@ -53,7 +53,37 @@ setMethod(".gbutton",
             
             invisible(obj)
           })
-          
+
+
+## constructor for gaction instance
+## constructor for gaction instance
+setMethod(".gbutton",signature(action="guiWidget", toolkit="guiWidgetsToolkitrJava"),
+          function(toolkit,
+                   text="", border = TRUE, handler=NULL, action=NULL, container=NULL,...
+                   ) {
+            .gbutton(toolkit, text, border, handler, action = action@widget, container = container, ...)
+          })
+
+setMethod(".gbutton",signature(action="gActionrJava", toolkit="guiWidgetsToolkitrJava"),
+          function(toolkit,
+                   text="", border = TRUE, handler=NULL, action=NULL, container=NULL,...
+                   ) {
+
+            alst <- action@widget
+            obj <- .gbutton(toolkit,
+                            text = alst$label,
+                            border = border,
+                            handler = alst$handler,
+                            action = alst$action,
+                            container = container, ...)
+
+            if(!is.null(alst$tooltip))
+              .tooltip(obj,toolkit) <- alst$tooltip
+            
+            action@e$buttons <- c(action@e$buttons,obj)
+            return(obj)
+          })
+
 ### methods
 setMethod(".svalue",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gButtonrJava"),
@@ -88,7 +118,7 @@ setMethod(".addhandlerclicked",
               type="addActionListener",
               event = "ActionEvent",
                         class = "java/awt/event/ActionListener",
-                        cast = "javax/swing/AbstractButton")
+                        cast = "javax/swing/AbstractButton",...)
             return(ID)
           })
 setMethod(".addhandlerchanged",

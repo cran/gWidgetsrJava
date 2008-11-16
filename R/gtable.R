@@ -161,11 +161,11 @@ setMethod(".svalue",
 
             
             if(!is.null(index) && index == TRUE)
-              return(indices)
+              return(which(indices))    # the TRUE indices, not all of them
             
             ## Now a value
             if(missing(drop) || is.null(drop))
-              drop = FALSE
+              drop <- TRUE
 
             ##
             chosencol = obj@chosencol
@@ -185,7 +185,7 @@ setMethod(".addhandlerdoubleclick",
             ID = addJHandler(obj,handler, action,
               type="addMouseListener",
               event = "TwoMouseClicked",
-              class = "java/awt/event/MouseListener")
+              class = "java/awt/event/MouseListener",...)
            return(ID)
 
 ##             ## for JTable
@@ -213,7 +213,7 @@ setMethod(".addhandlerclicked",
             ID = addJHandler(obj,handler, action,
               type = "addMouseListener",
               event = "MouseClicked",
-              class = "java/awt/event/MouseListener")
+              class = "java/awt/event/MouseListener",...)
            return(ID)
 
             
@@ -450,7 +450,7 @@ setMethod(".addhandlerclicked",
             ID = addJHandler(tbl,handler, action,
               type = "addMouseListener",
               event = "MouseClicked",
-              class = "java/awt/event/MouseListener")
+              class = "java/awt/event/MouseListener",...)
            return(ID)
           })
 

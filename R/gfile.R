@@ -39,7 +39,7 @@ setMethod(".gfile",
 
             ## fix up: filter
             if(!is.null(filter))
-              cat("gfile: implement filtering\n")
+              gwCat("gfile: implement filtering\n")
 
 
             

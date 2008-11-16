@@ -142,6 +142,8 @@ setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gNotebookrJava",
                     value="gWidgetrJava"),
           function(obj, toolkit, value,  ...) {
+            tag(value, "parentContainer") <- obj
+            
             ## in ... we have many possibilies
             ## label -- for setting label  (also look for name)
             ## index for setting the index of page to add
@@ -240,6 +242,13 @@ setMethod(".add",
             
             ## move to newpage
             svalue(obj) <- thePage + 1
+
+            ## pack
+            top <- getTopLevel(obj)
+            if(!is.null(top)) {
+              .jcall(getBlock(top), "V", "pack")
+            }
+
           })
             
 ## Regular R methods treat gnotebook like a vector

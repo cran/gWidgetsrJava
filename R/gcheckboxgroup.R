@@ -153,7 +153,7 @@ setMethod(".addhandlerchanged",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gCheckboxgrouprJava"),
           function(obj, toolkit, handler, action=NULL, ...) {
             sapply(tag(obj,"itemlist"),function(i) {
-              addhandlerchanged(i, handler, action, ...)
+              addhandlerchanged(i, handler, action, actualobj=obj,...)
             })
             
           })

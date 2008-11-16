@@ -171,7 +171,7 @@ setMethod(".add",
 setReplaceMethod(".font",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gTextrJava"),
                  function(obj, toolkit, ..., value) {
-                   cat("gtext: implement font()\n")
+                   gwCat("gtext: implement font()\n")
                    return(obj)
                  })
 
@@ -187,7 +187,7 @@ setMethod(".addhandlerkeystroke",
               event = "insertUpdate",
               class = "javax/swing/event/DocumentListener",
               cast = "javax/swing/text/AbstractDocument",
-              jobj = jobj
+              jobj = jobj,...
               )
             return(ID)
           })

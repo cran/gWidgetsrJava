@@ -68,6 +68,8 @@ setMethod(".add",
           function(obj, toolkit, value, ...) {
             theArgs = list(...)
 
+            tag(value, "parentContainer") <- obj
+            
             ## value is dataframe or available from string
             if(is.character(value) && length(value) == 1)
               adf = svalue(value)

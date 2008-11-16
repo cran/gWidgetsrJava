@@ -1,5 +1,5 @@
 ### these classes need to be defined before their subclasses. Alphabetical doesn't cut
-### is so they go here.
+### it so they go here.
 
 ## for coerce.with
 setClassUnion("NULLorFunction",c("NULL","function"))

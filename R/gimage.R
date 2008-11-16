@@ -20,8 +20,11 @@ setMethod(".gimage",
 
             force(toolkit)
 
-            if (size != "") cat("gimage: size is currently ignored\n")
+            if (size != "") gwCat("gimage: size is currently ignored\n")
 
+            if(is.null(filename))
+              filename <- ""
+            
             iconFile = NULL
             if(dirname == "stock") {
               iconFile = gWidgetsrJavaIcons[[filename, exact=TRUE]]
@@ -122,7 +125,7 @@ setMethod(".addhandlerclicked",
                         type="addActionListener",
                         event="ActionEvent",
                         class = "java/awt/event/ActionListener",
-                        cast = "javax/swing/AbstractButton")
+                        cast = "javax/swing/AbstractButton",...)
 
           })
 setMethod(".addhandlerchanged",

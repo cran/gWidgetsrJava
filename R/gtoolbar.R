@@ -68,12 +68,29 @@ addButton = function(tb, style, text=NULL, icon=NULL,handler=NULL, action=NULL) 
 mapListToToolBar = function(tb, lst, style) {
   ## list is simple compared to menubar
   for(i in names(lst)) {
-    if(!is.null(lst[[i]]$separator)) {
+    tmp <- lst[[i]]
+    label <- i
+    if(.isgAction(lst[[i]])) {
+      tmp <- getToolkitWidget(lst[[i]])
+      label <- tmp$label
+    }
+
+    if(!is.null(tmp$separator)) {
       ## add separator
       .jcall(tb,"V","addSeparator")
-    } else if(!is.null(lst[[i]]$handler)) {
+    } else if(!is.null(tmp$handler)) {
       ## how to decide there are no text parts?
-      addButton(tb, style, i, lst[[i]]$icon, lst[[i]]$handler, lst[[i]]$action)
+      b <- addButton(tb, style, label, tmp$icon, tmp$handler, tmp$action)
+      ## store if gaction
+      if(.isgAction(lst[[i]])) {
+        if(is(lst,"gActionrJava"))
+          e <- lst[[i]]@e
+        else
+          e <- lst[[i]]@widget@e
+        l <- e$toolbaritems
+        l[[length(l) + 1]] <- b
+        e$toolbaritems <- l
+      }
     }
   }
 }
@@ -146,11 +163,40 @@ setReplaceMethod(".leftBracket",
           })
 
 
+## add to a gwindow
+## right way is to use border layout to add to a container
+## ## Add here is used to add to the bottom of the pane
+setMethod(".add",
+          signature(toolkit="guiWidgetsToolkitrJava",
+                    obj="gWindowrJava", value="gToolbarrJava"),
+          function(obj, toolkit,  value, ...) {
+            tag(value, "parentContainer") <- obj
+            cont = getWidget(obj)
+            tb = getBlock(value)
+            pane = cont$getContentPane()
+            bl <- .jnew("java/awt/BorderLayout")
+            where <- .jnew("java/lang/String", .jfield(bl,name="NORTH"))
+
+            .jcall(.jcast(pane,"java/awt/Container"),
+                   "V",
+                   method = "add",
+                   .jcast(tb,  "java/awt/Component"),
+                   .jcast(where,"java/lang/Object"))
+            ## show up without resizing?
+            .jcall(obj@widget,"V", "invalidate")
+            .jcall(obj@widget,"V", "validate")
+          })
+
+
+
 setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gToolbarrJava", value="list"),
           function(obj, toolkit, value,  ...) {
             svalue(obj) <- c(svalue(obj), value)
           })
+
+
+
 
 ## (from gmenu)
 setMethod(".delete",

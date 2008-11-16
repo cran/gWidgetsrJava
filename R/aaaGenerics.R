@@ -1,6 +1,6 @@
 missingMsg = function(x) {
   if(missing(x)) x = "XXX"
-  cat("This method",x,"needs to be written\n")
+  gwCat("This method",x,"needs to be written\n")
 }
 
 
@@ -242,6 +242,45 @@ setReplaceMethod(".enabled",
                    return(obj)
                  })
 
+
+## tooltip<-
+setReplaceMethod(".tooltip",
+                 signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+                 function(obj, toolkit, ..., value) {
+                   widget = getWidget(obj)
+                   .jcall(.jcast(widget,"java/awt/Component"),"V",
+                          "setToolTipText",value)
+                   return(obj)
+                 })
+
+## defaultWidget
+setMethod("defaultWidget",
+          signature(obj = "gWidgetrJava"),
+          function(obj,...) .defaultWidget(obj,obj@toolkit,...)
+          )
+
+setMethod(".defaultWidget",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit, ...) {
+            .defaultWidget(obj, toolkit) <-  TRUE
+            })
+
+## defaultWidget<-
+setReplaceMethod("defaultWidget",signature(obj="gWidgetrJava"),
+          function(obj, ..., value) {
+            .defaultWidget(obj, obj@toolkit,...) <- value
+            return(obj)
+          })
+
+setReplaceMethod(".defaultWidget",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit, ..., value) {
+            ## XXX What to do for default widget?
+            ## can do something for buttons, but that's it
+            return(obj)
+          })
+                 
+
 ## focus
 setMethod("focus",signature(obj="gWidgetrJava"),
           function(obj, ...) {
@@ -323,10 +362,10 @@ setReplaceMethod(".font",
                    missingMsg(".font<-");return(obj)
 
                    ## This is from RGtk2, need to modify
-                   fontDescr = pangoFontDescriptionFromString(string)
-                   getWidget(obj)$ModifyFont(fontDescr)
+#                   fontDescr = pangoFontDescriptionFromString(string)
+#                   getWidget(obj)$ModifyFont(fontDescr)
                    
-                   return(obj)
+#                   return(obj)
                  })
 ## tag, tag<-
 ## In RGtk2 we used the getData() and setData() methods. In rJava I'd like
@@ -574,7 +613,7 @@ setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",
                     obj="gWidgetrJava", value="try-error"),
           function(obj, toolkit, value, ...) {
-            gmessage(paste("Error:",x))
+            gmessage(paste("Error:",obj))
           })
 ## pushdonw
 setMethod(".add",
@@ -599,6 +638,8 @@ setMethod(".add",
             theArgs = list(...)
             expand = if(is.null(theArgs$expand)) FALSE else theArgs$expand
 
+            tag(value, "parentContainer") <- obj
+            
             cont = getWidget(obj)
             widget = getBlock(value)
 
@@ -639,6 +680,12 @@ setMethod(".add",
             ## update
             .jcall(cont, "V", "invalidate")
             .jcall(cont, "V", "validate")
+
+            ## pack
+            top <- getTopLevel(obj)
+            if(!is.null(top)) {
+              .jcall(getBlock(top), "V", "pack")
+            }
           })
 
 
@@ -1125,6 +1172,24 @@ setMethod(".addhandlermousemotion",
           })
 
 
+## blur -- leave widget
+setMethod("addhandlerblur",signature(obj="gWidgetrJava"),
+          function(obj, handler=NULL, action=NULL, ...) {
+            .addhandlerblur(obj,obj@toolkit,handler, action, ...)
+          })
+setMethod("addhandlerblur",signature(obj="rJavaObject"),
+          function(obj, handler=NULL, action=NULL, ...) {
+            .addhandlerblur(obj,guiToolkit("rJava"),handler, action, ...)
+          })
+
+setMethod(".addhandlerblur",
+          signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
+          function(obj, toolkit,
+                   handler, action=NULL, ...) {
+            warning("No default handler for blur")
+          })
+
+
 ## idle
 setMethod("addhandleridle",signature(obj="gWidgetrJava"),
           function(obj, handler=NULL, action=NULL, interval=1000, ...) {
@@ -1230,7 +1295,7 @@ add3rdMousePopupMenuWithSignal = function(obj, toolkit,  menulist, action=NULL, 
 setMethod(".addpopupmenu",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit, menulist, action=NULL, ...) {
-            addPopupMenuWithSignal(obj, toolkit, menulist, ..)
+            addPopupMenuWithSignal(obj, toolkit, menulist, ...)
 })
 
 

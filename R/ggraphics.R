@@ -21,7 +21,16 @@ setMethod(".ggraphics",
 
             ## this is from iWidgets code in widgets.R
             ## This doesn't allow us to embed the device into a widget
-            
+
+            dev.new()
+##            JavaGD("ggraphics", width = width, height = height, ps = ps)
+
+            obj <- glabel("No embeddable device\nin gWidgetsrJava", cont = container)
+            return(obj)
+
+            ## This used to work, now doesn't. Just punt as above by
+            ## calling a new device through JavaGD.
+            ## Methods won't work
 
             gd = .jnew("org/rosuda/javaGD/GDCanvas", as.integer(force(width)),as.integer(force(height)))
 

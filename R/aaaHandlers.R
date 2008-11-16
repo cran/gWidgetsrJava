@@ -33,6 +33,8 @@ addJHandler = function(obj,
   jobj = getWidget(obj),                # override for jobj
   ...)  {
 
+  theArgs <- list(...)
+  
   ID = as.character(obj@ID)
   handlerID = "1"                         # unless otherwise
   allHandlers = getFromNamespace("allHandlers",ns="gWidgetsrJava")
@@ -72,7 +74,7 @@ addJHandler = function(obj,
   handlerID = length(allHandlers[[ID]][[event]]) + 1
   allHandlers[[ID]][[event]][[handlerID]] = list(
                              handler=handler,
-                             obj = obj,
+                             obj = if(is.null(theArgs$actualobj)) obj else theArgs$actualobj,
                              action=action,
                              envir=parent.frame()
                              )

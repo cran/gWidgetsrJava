@@ -1,5 +1,10 @@
 package gWidgetsrJava;
 
+// INSERT PROPER ATTRIBUTION HERE -- THIS CAME FROM SOMEWHERE ON THE WEB
+// LIKELY The JFC Swing tutorial
+// By Kathy Walrath, Mary Campione, Safari Tech Books Online 
+//
+
 import javax.swing.JFrame;
 import javax.swing.JComponent;
 import javax.swing.JPanel;

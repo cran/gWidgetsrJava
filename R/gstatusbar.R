@@ -11,14 +11,13 @@ setMethod(".gstatusbar",
 
             force(toolkit)            
 
-            theArgs = list(...)
-            theArgs$horizontal=TRUE
-            group = do.call("ggroup", theArgs)
-            statusbar = glabel(text)
-            add(group, statusbar, expand=TRUE)
+
+            statusbar <- .jnew("javax/swing/JLabel", text)
             
-            obj = new("gStatusbarrJava",block=group, widget=statusbar,
+            obj = new("gStatusbarrJava",block=statusbar, widget=statusbar,
               toolkit=toolkit, ID=getNewID(),  e = new.env())
+
+            obj@e$label <- text         # avoid gettext for label
             
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
@@ -30,19 +29,47 @@ setMethod(".gstatusbar",
           })
 
 ### methods
+## right way is to use border layout to add to a container
+## ## Add here is used to add to the bottom of the pane
+setMethod(".add",
+          signature(toolkit="guiWidgetsToolkitrJava",
+                    obj="gWindowrJava", value="gStatusbarrJava"),
+          function(obj, toolkit,  value, ...) {
+            tag(value, "parentContainer") <- obj
+            cont = getWidget(obj)
+            sb = getBlock(value)
+            pane = cont$getContentPane()
+            bl <- .jnew("java/awt/BorderLayout")
+            where <- .jnew("java/lang/String", .jfield(bl,name="SOUTH"))
+
+            .jcall(.jcast(pane,"java/awt/Container"),
+                   "V",
+                   method = "add",
+                   .jcast(sb,  "java/awt/Component"),
+                   .jcast(where,"java/lang/Object"))
+            ## show up without resizing?
+            .jcall(obj@widget,"V", "invalidate")
+            .jcall(obj@widget,"V", "validate")
+          })
+
 
 ## This gets from glabel instance
 setMethod(".svalue",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gStatusbarrJava"),
           function(obj, toolkit, index=NULL, drop=NULL, ...) {
-            svalue(obj@widget)
+            return(obj@e$label)
           })
 
 ## This pushes to label
 setReplaceMethod(".svalue",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gStatusbarrJava"),
                  function(obj, toolkit, index=NULL, ..., value) {
-                   svalue(obj@widget) <- value
+                   ## two things
+                   obj@e$label <- value
+                   widget <- getWidget(obj)
+                   .jcall(widget, "V",
+                          method="setText",
+                          as.character(value))
                    return(obj)
                  })
 

@@ -16,12 +16,15 @@ setMethod(".gmessage",
                    ) {
 
             icon = match.arg(icon)
-
-            if(!is.null(parent)) gwCat("Implement parent in gmessage\n")
+            if(missing(message) || length(message) == 0) message <- ""
+            
+            frame <- .jnull(class="java/awt/Component")
+            if(!is.null(parent))
+              frame <- getBlock(parent)
             
             op = .jnew("gWidgetsrJava/gDialog")
             .jcall(op,"V","gMessage",
-                   .jnew("javax/swing/JFrame", .jnew("java/lang/String",title)),
+                   .jcast(frame,"java/awt/Component"),
                    .jnew("java/lang/String",as.character(message)),
                    .jnew("java/lang/String",as.character(title)),
                    .jnew("java/lang/String",icon)
@@ -43,16 +46,21 @@ setMethod(".gconfirm",
                    ) {
             
             icon = match.arg(icon)
-
-            if(!is.null(parent)) gwCat("Implement parent in gconfirm\n")
+            if(missing(message) || length(message) == 0) message <- ""
+            
+            frame <- .jnull(class="java/awt/Component")
+            if(!is.null(parent))
+              frame <- getBlock(parent)
+            
 
             op = .jnew("gWidgetsrJava/gDialog")
             ans= .jcall(op,"I","gConfirm",
-              .jnew("javax/swing/JFrame", .jnew("java/lang/String",title)),
+              .jcast(frame,"java/awt/Component"),
               .jnew("java/lang/String",as.character(message)),
               .jnew("java/lang/String",as.character(title)),
               .jnew("java/lang/String",icon)
               )
+            
             ## 1 for yes, 0 for no -1 for cancel
             if(ans == 1)
               invisible(TRUE)
@@ -77,20 +85,21 @@ setMethod(".ginput",
                    ) {
             
             icon = match.arg(icon)
-
-
-            if(!is.null(parent)) gwCat("Implement parent in ginput\n")
+            if(missing(message) || length(message) == 0) message <- ""
+            
+            frame <- .jnull(class="java/awt/Component")
+            if(!is.null(parent))
+              frame <- getBlock(parent)
             
             op = .jnew("gWidgetsrJava/gDialog")
             ans= .jcall(op,"S","gInput",
-              .jnew("javax/swing/JFrame",
-                    .jnew("java/lang/String",as.character(title))),
+              .jcast(frame,"java/awt/Component"),
               .jnew("java/lang/String",as.character(message)),
               .jnew("java/lang/String",as.character(text)),
               .jnew("java/lang/String",as.character(title)),
               .jnew("java/lang/String",icon)
          )
-
+            
             ## call handler if asked
             if(!is.null(handler)) 
               handler(list(obj=NULL, action=action, input=ans))
@@ -113,19 +122,24 @@ setMethod(".gbasicdialog",
                    ) {
   
             icon = match.arg(icon)
-
-            if(!is.null(parent )) gwCat("implement parent in gbasicdialog\n")
+            if(missing(message) || length(message) == 0) message <- ""
             
             g = ggroup()
             add(g,widget)
+
+
+            frame <- .jnull(class="java/awt/Component")
+            if(!is.null(parent))
+              frame <- getBlock(parent)
             
             op = .jnew("gWidgetsrJava/gDialog")
             ans= .jcall(op,"I","gBasicDialog",
-              .jnew("javax/swing/JFrame", .jnew("java/lang/String",as.character(title))),
+              .jcast(frame,"java/awt/Component"),
               g@widget@widget,
               .jnew("java/lang/String",as.character(title))
               )
             
+
             if(ans == 1) {
               ## yes
               if(!is.null(handler)) {

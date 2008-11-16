@@ -132,7 +132,9 @@ setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",
                     obj="gWindowrJava", value="gMenurJava"),
           function(obj, toolkit,  value, ...) {
-            DEBUG("gmenu: obj must be a top-level frame\n")
+
+            tag(value,"parentContainer") <- obj
+            
             cont = getWidget(obj)
             mb = getBlock(value)
             topPane = cont$getRootPane()
@@ -146,6 +148,8 @@ setMethod(".add",
                     obj="gContainerrJava", value="gMenurJava"),
           function(obj, toolkit,  value, ...) {
             DEBUG("gmenu: obj must be a top-level frame\n")
+            tag(value, "parentContainer") <- obj
+            
             cont = getWidget(obj)
             mb = getBlock(value)
             topPane = cont$getParent()$getRootPane()
@@ -244,7 +248,7 @@ addNewTopItem = function(mb,text,...) {
   return(mbh)
 }
 
-addNewItem =function(mbh, text,icon=NULL,handler=NULL, action=NULL, toolkit) {
+addNewItem =function(mbh, text,icon=NULL,handler=NULL, action=NULL, toolkit,...) {
   if(is.null(icon)) {
     mbi = .jnew("javax/swing/JMenuItem",.jnew("java/lang/String",text))
   } else {
@@ -267,15 +271,17 @@ addNewItem =function(mbh, text,icon=NULL,handler=NULL, action=NULL, toolkit) {
     ID = addJHandler(obj,handler, action,
       type="addActionListener",
       event = "ActionEvent",
-      class = "java/awt/event/ActionListener")
-    return(ID)
-  } else {
-    return(NA)
+      class = "java/awt/event/ActionListener",...)
+#    return(ID)
   }
+  ## JV change return value from ID or NA to mbi
+
+  return(mbi)
+  
 }
 
 addSeparator = function(mbh) {
-  mbh$addSeparator()
+#  mbh$addSeparator()
 }
 
 ## the takes care of top-level entries which are different as they
@@ -290,19 +296,47 @@ mapListToMenuBar = function(mb, lst, toolkit) {
 }
 
 addListToMenuBarItem = function(mbh,name, lst, toolkit) {
-  if("handler" %in% names(lst)) {
-    addNewItem(mbh, text=name, lst$icon, lst$handler, lst$action, toolkit)
+  tmp <- lst
+
+  if(.isgAction(lst)) {
+    tmp <- getToolkitWidget(lst)
+    name <- tmp$label
+  }
+  if("handler" %in% names(tmp)) {
+    mbi <- addNewItem(mbh, text=name, tmp$icon, tmp$handler, tmp$action, toolkit)
+    if(.isgAction(lst)) {
+      if(is(lst,"gActionrJava"))
+          e <- lst@e
+      else
+        e <- lst@widget@e
+      l <- e$menuitems
+      l[[length(l) + 1]] <- mbi
+      e$menuitems <- l
+    }
     return()
-  } else if("separator" %in% names(lst)) {
+  } else if("separator" %in% names(tmp)) {
     addSeparator(mbh)
     return()
   }
 
-  for(i in names(lst)) {
+  for(i in names(tmp)) {
     ##    print(i)
-    newLst = lst[[i]]
+    newLst = tmp[[i]]
+    if(.isgAction(newLst)) {
+      newLst <- getToolkitWidget(newLst)
+    }
+    
     if("handler" %in% names(newLst)) {
-      addNewItem(mbh, text=i, newLst$icon, newLst$handler, newLst$action, toolkit)
+      mbi <- addNewItem(mbh, text=i, newLst$icon, newLst$handler, newLst$action, toolkit)
+      if(.isgAction(tmp[[i]])) {
+        if(is(tmp[[i]],"gActionrJava"))
+          e <- tmp[[i]]@e
+        else
+          e <- tmp[[i]]@widget@e
+        l <- e$menuitems
+        l[[length(l) + 1]] <- mbi
+        e$menuitems <- l
+      }
     } else if ("separator" %in% names(newLst)) {
       addSeparator(mbh)
       return()
@@ -311,7 +345,7 @@ addListToMenuBarItem = function(mbh,name, lst, toolkit) {
       newMbh = .jnew("javax/swing/JMenu",i)
       .jcall(mbh,"Ljava/awt/Component;","add",
              .jcast(newMbh,"java/awt/Component"))
-      addListToMenuBarItem(newMbh, i, lst[[i]], toolkit)
+      addListToMenuBarItem(newMbh, i, tmp[[i]], toolkit)
     }
   }
 }

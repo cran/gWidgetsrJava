@@ -91,7 +91,8 @@ setReplaceMethod(".visible",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gExpandgrouprJava"),
                  function(obj, toolkit, ..., value) {
                    exg = tag(obj,"expandGroup")
-                   .jcall(exg,"V","setVisibility",as.logical(value))
+                   .jcall(exg,"V","setVisibility",
+                          .jnew("java/lang/Boolean",as.logical(value)))
 
                    return(obj)
                  })

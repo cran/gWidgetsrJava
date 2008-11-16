@@ -13,21 +13,23 @@ jcall = function(x,method,...,ret="V")
 
 
 ## make a jobject
-asjobject = function(x) UseMethod("asjobject")
+asjobject <- function(x) UseMethod("asjobject")
 
-asjobject.character = function(x)
+asjobject.default <- function(x) x
+
+asjobject.character <- function(x)
   .jcast(.jnew("java/lang/String",x),"java/lang/Object")
 
-asjobject.numeric = function(x) {
+
+asjobject.numeric <- function(x) {
   if(is.integer(x)) 
     .jcast(.jnew("java/lang/Integer",as.integer(x)),"java/lang/Object")
   else
     .jcast(.jnew("java/lang/Double",x),"java/lang/Object")
 }
 
-
-## get the frame for this rJava object
-getWindow = function(obj)obj$getRootPane()$getParent()
+asjobject.logical <- function(x) 
+  .jcast(.jnew("java/lang/Boolean",x), "java/lang/Object")
 
 
 

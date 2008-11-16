@@ -52,6 +52,7 @@ setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava", obj="gLayoutrJava",
                     value="gWidgetrJava"),
           function(obj, toolkit, value, ...) {
+            tag(value,"parentContainer") <- obj
             ## stub
           })
 
@@ -74,7 +75,7 @@ setReplaceMethod(".leftBracket",
             if(is.character(value)) value = glabel(value)
             value = try(getWidget(value),silent=TRUE)
             if(inherits(value,"try-error")) {
-              warn("value is not a gwidget or character\n")
+              warning("value is not a gwidget or character\n")
               return()
             }
 
@@ -141,7 +142,14 @@ setReplaceMethod(".leftBracket",
                    "add",
                    as.jcomponent(value),
                    .jcast(c,"java/lang/Object"))
-            .jcall(pane, "V", "validate")            
+            .jcall(pane, "V", "validate")
+
+            ## pack
+            top <- getTopLevel(x)
+            if(!is.null(top)) {
+              .jcall(getBlock(top), "V", "pack")
+            }
+
             return(x)
 
           })

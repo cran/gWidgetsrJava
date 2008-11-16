@@ -65,7 +65,7 @@ setMethod(".addhandlerchanged",
             ID = addJHandler(obj,handler, action,
               type="addActionListener",
               event = "ActionEvent",
-              class = "java/awt/event/ActionListener")
+              class = "java/awt/event/ActionListener",...)
             return(ID)
           })
 
