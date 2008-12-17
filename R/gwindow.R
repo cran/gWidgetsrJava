@@ -84,7 +84,7 @@ setMethod(".svalue",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWindowrJava"),
           function(obj, toolkit, index=NULL, drop=NULL, ..) {
             ## return title
-            .jcall(obj@widget, , "getTitle")
+            .jcall(obj@widget,"S" , "getTitle")
           })
 
 setMethod(".svalue<-",

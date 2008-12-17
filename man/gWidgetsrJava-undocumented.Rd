@@ -426,6 +426,8 @@
 \alias{.add-methods}
 \alias{.add,guiWidget,guiWidgetsToolkitrJava,ANY-method}
 \alias{.add,guiWidget,guiWidgetsToolkitrJava,guiWidgetORgWidgetrJavaORrJavaObject-method}
+\alias{.add,gBasicDialogNoParentrJava,guiWidgetsToolkitrJava,guiWidget-method}
+\alias{.add,gBasicDialogNoParentrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gContainerrJava,guiWidgetsToolkitrJava,guiWidget-method}
 \alias{.add,gContainerrJava,guiWidgetsToolkitrJava,gWidgetrJava-method}
 \alias{.add,gContainerrJava,guiWidgetsToolkitrJava,gGraphicsrJava-method}
@@ -528,6 +530,7 @@
 %%
 \alias{.visible-methods}
 \alias{.visible,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.visible,gBasicDialogNoParentrJava,guiWidgetsToolkitrJava-method}
 \alias{.visible,gGridrJava,guiWidgetsToolkitrJava-method}
 \alias{.visible,gExpandgrouprJava,guiWidgetsToolkitrJava-method}
 \alias{.visible,gLayoutrJava,guiWidgetsToolkitrJava-method} 
@@ -571,6 +574,11 @@
 \alias{.enabled<-,gWidgetrJava,guiWidgetsToolkitrJava-method}
 \alias{.enabled<-,rJavaObject,guiWidgetsToolkitrJava-method} 
 \alias{.enabled<-,gActionrJava,guiWidgetsToolkitrJava-method} 
+%%
+%% --  .insert- --
+%%
+\alias{.insert-methods}
+\alias{.insert,gTextrJava,guiWidgetsToolkitrJava-method}
 %%
 %% --  size --
 %%
@@ -1026,6 +1034,11 @@
 \alias{.adddroptarget,gLabelrJava,guiWidgetsToolkitrJava-method}
 \alias{.adddroptarget,gImagerJava,guiWidgetsToolkitrJava-method} 
 %%
+%% --  .galert --
+%%
+\alias{.galert-methods}
+\alias{.galert,guiWidgetsToolkitrJava-method} 
+%%
 %% --  .gmessage --
 %%
 \alias{.gmessage-methods}
@@ -1046,6 +1059,11 @@
 \alias{.gbasicdialog-methods}
 \alias{.gbasicdialog,guiWidgetsToolkitrJava-method} 
 %%
+%% --  .gbasicdialognoparent --
+%%
+\alias{.gbasicdialognoparent-methods}
+\alias{.gbasicdialognoparent,guiWidgetsToolkitrJava-method} 
+%%
 %% --  update --
 %%
 \alias{update-methods}
@@ -1064,6 +1082,7 @@
 %%
 \alias{.length-methods}
 \alias{.length,gWidgetrJava,guiWidgetsToolkitrJava-method}
+\alias{.length,gCheckboxgrouprJava,guiWidgetsToolkitrJava-method}
 \alias{.length,gGridrJava,guiWidgetsToolkitrJava-method}
 \alias{.length,gNotebookrJava,guiWidgetsToolkitrJava-method}
 \alias{.length,gDroplistrJava,guiWidgetsToolkitrJava-method} 
@@ -1102,6 +1121,7 @@
 %% --  .names --
 %%
 \alias{.names-methods}
+\alias{.names,gCheckboxgrouprJava,guiWidgetsToolkitrJava-method}
 \alias{.names,gGridrJava,guiWidgetsToolkitrJava-method}
 \alias{.names,gFramerJava,guiWidgetsToolkitrJava-method}
 \alias{.names,gNotebookrJava,guiWidgetsToolkitrJava-method} 
@@ -1169,11 +1189,18 @@
 
 
 \title{Undocumented functions in gWidgetsrJava}
+
 \description{
+
 	The gWidgetsrJava package implements the gWidgets API. In
 	gWidgets the primary constructors and methods are
-	documented. The basic idea is that \code{function} in gWidgets
-	calls \code{.function} in gWidgetsrJava. Hence the many
-	functions here.
+	documented. The \pkg{gWidgets} package defines the generics,
+	and the dispatch is handled by methods defined in the toolkit
+	implementations. There are two levels of dispatch. The method
+	\code{method} dispatches to the generic \code{.method} based
+	on the toolkit, and this dispatches within the toolkit. As the
+	toolkits simply provide the objects \code{.method}, there is
+	no reason to document them in the toolkits.
+
 }
 \keyword{interface}% at least one, from doc/KEYWORDS

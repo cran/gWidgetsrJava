@@ -70,6 +70,10 @@ mapListToToolBar = function(tb, lst, style) {
   for(i in names(lst)) {
     tmp <- lst[[i]]
     label <- i
+
+    if(.isgSeparator(tmp))
+      tmp <- list(separator=TRUE)
+    
     if(.isgAction(lst[[i]])) {
       tmp <- getToolkitWidget(lst[[i]])
       label <- tmp$label

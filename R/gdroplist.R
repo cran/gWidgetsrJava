@@ -244,7 +244,9 @@ setReplaceMethod(".leftBracket",
                 .jcall(x@widget,"V","removeAllItems")
               
               ## add one by one using addItem
-              for(i in value)
+              if(!is.data.frame(value))
+                value <- data.frame(value, stringsAsFactors=FALSE)
+              for(i in as.character(value[,1,drop=TRUE]))
                 .jcall(x@widget,"V","addItem",asjobject(i))
             } else {
               items = x[]

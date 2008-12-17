@@ -2,13 +2,13 @@
 ## and value the filepath
 ## use as in .jnew("javax/swing/ImageIcons",icons[["ts"]])
 getgWidgetsrJavaIcons = function() {
-  path = system.file("images",package="gWidgetsrJava")
+  path = system.file("images",package="gWidgets")##rJava")
   allIcons = list.files(path)
   ## create a hash with name -> location
   iconPaths = list()
   for(i in allIcons) {
     filename = sub("\\.xpm$|\\.gif$|\\.jpg$|\\.jpeg$|\\.png$|\\.tiff$","",i)
-    iconPaths[[filename]] <- system.file("images",i,package="gWidgetsrJava")
+    iconPaths[[filename]] <- system.file("images",i,package="gWidgets") ##rJava")
   }
   return(iconPaths)
 }
@@ -24,8 +24,18 @@ setMethod(".getStockIcons",
           function(toolkit) {
             .stockicons = list()
             for(i in unlist(getgWidgetsrJavaIcons())) {
-              name = sub("[a-zA-Z0-9]*-","",i)
-              .stockicons[[name]] = i
+              tmp <- unlist(strsplit(i, .Platform$file.sep))
+              tmp <- tmp[length(tmp)]
+              ## split off "."
+              tmp1 <- unlist(strsplit(tmp,"\\."))
+              if(length(tmp1) > 1) {
+                tmp1 <- tmp1[-length(tmp1)]
+                name <- paste(tmp1,sep=".", collapse="")
+              } else {
+                name <- tmp1
+              }
+
+              .stockicons[[name]] <- i
             }
             return(.stockicons)
           })

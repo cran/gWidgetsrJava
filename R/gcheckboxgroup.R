@@ -91,11 +91,27 @@ setMethod(".svalue",
 setReplaceMethod(".svalue",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gCheckboxgrouprJava"),
                  function(obj, toolkit, index=NULL, ..., value) {
-                   items = tag(obj,"items")
-                   lst = tag(obj,"itemlist")
-                   values = rep(value, length.out=length(items))
 
-                   sapply(1:length(items), function(i) svalue(lst[[i]]) <- values[i])
+                   lst = tag(obj,"itemlist")
+                   n <- length(obj)
+                   
+                   ## compute values -- logical vector with length n
+                   if(!is.null(index) && index) {
+                     ## indices
+                     values <- rep(FALSE, n)
+                     values[value] <- TRUE
+                   } else if(!is.logical(value)) {
+                     ## characters
+                    ind <- match(value, obj[])
+                    ind <- ind[!is.na(ind)]
+                    values <- rep(FALSE,length=n)
+                    values[ind] <- TRUE
+                   } else {
+                     ## logical vector, we recycle
+                     values = rep(value, length.out=n) ## recycle
+                   }
+
+                   sapply(1:n, function(i) svalue(lst[[i]]) <- values[i])
                    
                    return(obj)
                  })
@@ -115,6 +131,11 @@ setMethod(".leftBracket",
               return(items)
             else
               return(items[i])
+          })
+
+setMethod(".names",signature(toolkit="guiWidgetsToolkitrJava",x="gCheckboxgrouprJava"),
+          function(x, toolkit) {
+            x[]
           })
 
 ## assigns names
@@ -146,6 +167,13 @@ setReplaceMethod(".leftBracket",
             tag(x,"itemlist") <- lst
   
              return(x)
+          })
+
+## length
+setMethod(".length",
+          signature(toolkit="guiWidgetsToolkitrJava",x="gCheckboxgrouprJava"),
+          function(x,toolkit) {
+            length(tag(x,"items"))
           })
 
 ## handlers

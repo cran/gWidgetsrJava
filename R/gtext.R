@@ -115,6 +115,18 @@ setMethod(".dispose",
 ## add, as a method, needs to have a consistent signature. I'
 
 ## add text
+setMethod(".insert",
+          signature(toolkit="guiWidgetsToolkitrJava",obj = "gTextrJava"),
+          function(obj, toolkit, value, where = c("end","beginning","at.cursor"),
+                   font.attr = NULL,
+                   do.newline = TRUE, ...) {
+            ## just call add
+            where = match.arg(where)
+            .add(obj, toolkit, value, where=where, font.attr=font.attr,
+                 do.newline=do.newline, ...)
+          })
+## add does all the work
+
 setMethod(".add",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gTextrJava",value="character"),
           function(obj, toolkit, value,  ...) {

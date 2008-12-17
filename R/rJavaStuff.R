@@ -20,6 +20,9 @@ asjobject.default <- function(x) x
 asjobject.character <- function(x)
   .jcast(.jnew("java/lang/String",x),"java/lang/Object")
 
+asjobject.factor <- function(x)
+  asjobject(as.character(x))
+  
 
 asjobject.numeric <- function(x) {
   if(is.integer(x)) 

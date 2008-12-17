@@ -77,6 +77,27 @@ setMethod(".svalue",
 setReplaceMethod(".svalue",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gActionrJava"),
                  function(obj, toolkit, index=NULL, ..., value) {
-                   ## no op
-                   return(obj)
+                   e <- obj@e
+                   if(length(e$buttons) > 0) {
+                     sapply(e$buttons, function(i) svalue(i) <- value)
+                   }
+
+                   if(length(e$toolbaritems) > 0)
+                     sapply(e$toolbaritems, function(i) {
+                       ## configure java toolbar item
+                       .jcall(.jcast(i,"javax/swing/AbstractButton"),"V",
+                              "setText",
+                              .jnew("java/lang/String",as.character(value))
+                              )
+                     })
+                     if(length(e$menuitems) > 0)
+                       sapply(e$menuitems, function(i) {
+                         ## configure java menubar item
+                         .jcall(.jcast(i,"javax/swing/AbstractButton"),"V",
+                                "setText",
+                                .jnew("java/lang/String",as.character(value))
+                                )
+                       })
+
+                     return(obj)
                  })

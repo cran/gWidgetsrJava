@@ -38,3 +38,8 @@ setMethod(".gseparator",
           })
 
 
+
+.isgSeparator <- function(obj) {
+  (is(obj,"guiComponent") && is(obj@widget,"gSeparatorrJava") ) ||
+  is(obj,"gSeparatorrJava")
+}

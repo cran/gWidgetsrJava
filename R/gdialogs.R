@@ -103,8 +103,11 @@ setMethod(".ginput",
             ## call handler if asked
             if(!is.null(handler)) 
               handler(list(obj=NULL, action=action, input=ans))
-                      
-            invisible(ans)
+
+            if(!is.null(ans))
+              return(invisible(ans))
+            else
+              return(NA)
             
             
           })
@@ -121,9 +124,6 @@ setMethod(".gbasicdialog",
                    ...
                    ) {
   
-            icon = match.arg(icon)
-            if(missing(message) || length(message) == 0) message <- ""
-            
             g = ggroup()
             add(g,widget)
 
@@ -154,3 +154,71 @@ setMethod(".gbasicdialog",
             return(ans)
           })
 
+## gbasicdialog for tcltk type
+setClass("gBasicDialogNoParentrJava",
+         contains="gContainerrJava",
+         prototype=prototype(new("gContainerrJava"))
+         )
+
+setMethod(".gbasicdialognoparent",
+          signature(toolkit="guiWidgetsToolkitrJava"),
+          function(toolkit,
+                   title = "Dialog",
+                   parent=NULL,                   
+                   handler = NULL,
+                   action = NULL,
+                   ...
+                   ) {
+            
+            cat("XXX implement me\n")
+            return(NA)
+          })
+
+setMethod(".add",
+          signature(toolkit="guiWidgetsToolkitrJava",
+                    obj="gBasicDialogNoParentrJava", value="guiWidget"),
+          function(obj, toolkit, value, ...) {
+            .add(obj, toolkit, value@widget, ...)
+          })
+
+setMethod(".add",
+          signature(toolkit="guiWidgetsToolkitrJava",
+                    obj="gBasicDialogNoParentrJava", value="gWidgetrJava"),
+           function(obj, toolkit, value, ...) {
+             add(obj@widget, value, ...)
+             ## keep these around
+             tag(obj,"widget") <- value
+          })
+
+setMethod(".visible",
+                 signature(toolkit="guiWidgetsToolkitrJava",
+                           obj="gBasicDialogNoParentrJava"),
+                 function(obj, toolkit, set=NULL, ...) {
+
+                   if(as.logical(set)) {
+                   }
+                 })
+
+
+
+## galert
+setMethod(".galert",
+          signature(toolkit="guiWidgetsToolkitrJava"),
+          function(toolkit,
+                   message,
+                   title = "message",
+                   delay = 3,
+                   parent=NULL,
+                   ...
+                   ) {
+            force(toolkit)
+
+            w <- gwindow(title, width=250, height=50, parent = parent)
+            g <- ggroup(cont = w)
+            l <- glabel("  ", cont = g)
+            label <- glabel(message, cont = g, expand=TRUE)
+            font(label) <- c("weight"="bold")
+            gimage(file="dismiss",dir="stock", cont = g, handler = function(h,...) dispose(w))
+            
+            addHandlerIdle(label, handler = function(h,...) dispose(w), interval = delay*1000)
+          })

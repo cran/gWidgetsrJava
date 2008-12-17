@@ -27,6 +27,10 @@ setMethod(".gcalendar",
               block=datepicker, widget = datepicker, toolkit=toolkit,
               ID=getNewID(),  e = new.env(), format=format)
 
+
+            theArgs <- list(...)
+            tag(obj,"coerce.with") <- theArgs$coerce.with
+            
             if (!is.null(container)) {
               if(is.logical(container) && container == TRUE)
                 container = gwindow()
@@ -48,12 +52,24 @@ setMethod(".svalue",
 
             ## need to strip out TZ -- can't convert to date object
             ## easily
-            n = nchar(date)
-            date = paste(substr(date,1,19),substr(date,n-3,n),sep=" ")
-            date = as.Date(date,"%a %b %d %T %Y")
+            n <- nchar(date)
+            date <- paste(substr(date,1,19),substr(date,n-3,n),sep=" ")
+            date <- as.Date(date,"%a %b %d %T %Y")
 
-            format = obj@format
-            date = format(date, format=format)
+            format <- obj@format
+            date <- format(date, format=format)
+
+            if(!is.null(coerce.with <- tag(obj,"coerce.with"))) {
+              ## check that coerce.with is a function
+              if(is.null(coerce.with) || is.function(coerce.with)) {
+                ## okay
+              } else {
+                if(is.character(coerce.with)) {
+                  coerce.with <- get(coerce.with)
+                }
+              }
+              date <- coerce.with(date)
+            }
 
             return(date)
           })

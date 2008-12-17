@@ -297,11 +297,15 @@ mapListToMenuBar = function(mb, lst, toolkit) {
 
 addListToMenuBarItem = function(mbh,name, lst, toolkit) {
   tmp <- lst
+  if(.isgSeparator(tmp))
+    tmp <- list(separator=TRUE)
 
   if(.isgAction(lst)) {
     tmp <- getToolkitWidget(lst)
     name <- tmp$label
   }
+
+
   if("handler" %in% names(tmp)) {
     mbi <- addNewItem(mbh, text=name, tmp$icon, tmp$handler, tmp$action, toolkit)
     if(.isgAction(lst)) {
@@ -322,6 +326,8 @@ addListToMenuBarItem = function(mbh,name, lst, toolkit) {
   for(i in names(tmp)) {
     ##    print(i)
     newLst = tmp[[i]]
+    if(.isgSeparator(newLst))
+      newLst <- list(separator=TRUE)
     if(.isgAction(newLst)) {
       newLst <- getToolkitWidget(newLst)
     }
