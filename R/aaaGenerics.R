@@ -24,8 +24,8 @@ setClass("guiWidgetsToolkitrJava",
 
 require(rJava)
 setClass("rJavaObject")
-setClass("jobjRef")
-setIs("jobjRef","rJavaObject")
+#setOldClass("jobjRef")
+#setIs("jobjRef","rJavaObject")
 ## sapply(oldClasses, function(i) {
 ##   setOldClass(i)
 ##   setIs(i,"rJavaObject")
@@ -59,7 +59,7 @@ setClass("gWidgetrJava",
 
 
 setClassUnion("guiWidgetORgWidgetrJavaORrJavaObject",
-              c("guiWidget","gWidgetrJava","rJavaObject"))
+              c("guiWidget","gWidgetrJava","jobjRef", "rJavaObject"))
 
 ## subclss
 setClass("gComponentrJava",
@@ -145,7 +145,7 @@ setReplaceMethod("[",signature(x="gWidgetrJava"),
 ## size ## return size -- not implemented
 setMethod("size",signature(obj="gWidgetrJava"),
           function(obj, ...) {
-            warning("size not defined, Set window size with size<-()")
+            cat("size not defined, Set window size with size<-()")
             return()
             .size(obj, obj@toolkit,...)
           })
@@ -332,7 +332,7 @@ setReplaceMethod(".focus",
 
 setMethod("font",signature(obj="gWidgetrJava"),
           function(obj, ...) {
-            warning("font() not defined. Set fonts with font<-")
+            cat("font() not defined. Set fonts with font<-")
             return()
             .font(obj, obj@toolkit,...)
           })
@@ -346,6 +346,9 @@ setReplaceMethod("font",signature(obj="gWidgetrJava"),
 setReplaceMethod(".font",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
                  function(obj, toolkit, ..., value) {
+                   if(!is.list(value))
+                     value <- lapply(value, function(i) i)
+
                    string = ""
                    if(!is.null(value$family) && value$family %in% .font.styles$families)
                      string = Paste(string," ",value$family)
@@ -998,7 +1001,7 @@ setMethod("addhandlerchanged",signature(obj="rJavaObject"),
           })
 setMethod("addhandlerchanged",signature(obj="ANY"),
           function(obj, handler=NULL, action=NULL, ...) {
-            warning("No method addhandlerchanged for object of class",class(obj),"\n")
+            cat("No method addhandlerchanged for object of class",class(obj),"\n")
           })
 
 setMethod(".addhandlerchanged",
@@ -1122,7 +1125,7 @@ setMethod(".addhandlerdoubleclick",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit,
                    handler, action=NULL, ...) {
-            warning("No default handler for double click")
+            cat("No default handler for double click")
           })
 
 ## rightclick: button-press-event -- handle separately
@@ -1168,7 +1171,7 @@ setMethod(".addhandlermousemotion",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit,
                    handler, action=NULL, ...) {
-            warning("No default handler for mouse motion")
+            cat("No default handler for mouse motion")
           })
 
 
@@ -1186,7 +1189,7 @@ setMethod(".addhandlerblur",
           signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
           function(obj, toolkit,
                    handler, action=NULL, ...) {
-            warning("No default handler for blur")
+            cat("No default handler for blur")
           })
 
 

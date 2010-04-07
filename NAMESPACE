@@ -1,3 +1,4 @@
+importClassesFrom(rJava,"jobjRef")
 importFrom(gWidgets,
            "gwCat",
 "glabel", "gbutton", "gcheckbox", "gradio", "gdroplist",

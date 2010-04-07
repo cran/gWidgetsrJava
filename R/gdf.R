@@ -263,7 +263,7 @@ setReplaceMethod(".leftBracket",
             theArgs = list(...)
             rownameFudge = doRownameFudge(x)
 
-            tbl = x@widget
+            tbl = getWidget(x)
             gDfobj = x@block
             
             ## change indices
@@ -274,8 +274,9 @@ setReplaceMethod(".leftBracket",
               ## delete rows at bottom if value is smaller
               if(max(i) < d[1]) {
                 tableModel = .jcall(tbl,"Ljavax/swing/table/TableModel;","getModel")
+                print(tableModel)
                 for(row in rev((max(i)+1):d[1])) ## revese here to take from bottom
-                  .jcall(tableModel,"V","removeRow",as.integer(row-1))
+                  try(.jcall(tableModel,"V","removeRow",as.integer(row-1)), silent=TRUE)
               } else if(max(i) > d[1]) {
                 ## add rows at bottom if values is bigger
                 tableModel = .jcall(tbl,"Ljavax/swing/table/TableModel;","getModel")
