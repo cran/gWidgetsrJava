@@ -2,6 +2,13 @@ Dear Emacs, please make this -*-Text-*- mode!
 
 NEWS for gWidgetsrJava
 
+Changes for  0.0-18, 19
+-----------------------
+
+* stub for use.table in gcheckboxgroup
+
+* bypass font<- method to pass check
+
 Changes for  0.0-14
 --------------------
 

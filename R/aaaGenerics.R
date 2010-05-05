@@ -346,6 +346,12 @@ setReplaceMethod("font",signature(obj="gWidgetrJava"),
 setReplaceMethod(".font",
                  signature(toolkit="guiWidgetsToolkitrJava",obj="gWidgetrJava"),
                  function(obj, toolkit, ..., value) {
+                   ## return obj!!
+                   missingMsg(".font<-");return(obj)
+
+                   ##################################################
+                   ## This is from RGtk2, need to modify
+
                    if(!is.list(value))
                      value <- lapply(value, function(i) i)
 
@@ -361,23 +367,18 @@ setReplaceMethod(".font",
                    if(!is.null(value$size))
                      string = Paste(string," ",as.integer(value$size))
                    
-                   ## return obj!!
-                   missingMsg(".font<-");return(obj)
 
-                   ## This is from RGtk2, need to modify
-#                   fontDescr = pangoFontDescriptionFromString(string)
-#                   getWidget(obj)$ModifyFont(fontDescr)
+##                   fontDescr = pangoFontDescriptionFromString(string)
+##                   getWidget(obj)$ModifyFont(fontDescr)
                    
-#                   return(obj)
+                   return(obj)
                  })
 ## tag, tag<-
+## This is now from gWidgets by default
+
 ## In RGtk2 we used the getData() and setData() methods. In rJava I'd like
 ## to use java/util/Properties, but that doesn't allow enough flexibility for
 ## values, so instead we use a list in R to do this. The drawback is that when an object is deleted, we don't clear out the contents -- grows without bound!
-
-
-
-
 
 ## ## create namespace object
 ## #tags = list()

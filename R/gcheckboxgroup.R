@@ -10,7 +10,7 @@ setMethod(".gcheckboxgroup",
           signature(toolkit="guiWidgetsToolkitrJava"),
           function(toolkit,
                    items, checked = FALSE,
-                   horizontal=FALSE, 
+                   horizontal=FALSE, use.table=FALSE,
                    handler = NULL, action = NULL, container = NULL, ...) {
 
             force(toolkit)
